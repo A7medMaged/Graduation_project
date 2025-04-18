@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_home/core/helper/assets.dart';
+import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/splash_screen/presentation/widgets/sliding_text.dart';
 
 class SplashScreenBody extends StatefulWidget {
@@ -52,12 +53,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset(
-          AssetsData.logo,
-          color: Colors.blue,
-          height: 200,
-          width: 200,
-        ),
+        Image.asset(AssetsData.logo, color: mainBlue, height: 200, width: 200),
         SlidingText(slidingAnimation: slidingAnimation),
       ],
     );

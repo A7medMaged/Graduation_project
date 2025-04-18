@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/core/theming/text_style.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({super.key, required this.slidingAnimation});
@@ -12,7 +13,11 @@ class SlidingText extends StatelessWidget {
       builder: (context, _) {
         return SlideTransition(
           position: slidingAnimation,
-          child: const Text('Be Smarter', textAlign: TextAlign.center),
+          child: Text(
+            'Be Smarter',
+            textAlign: TextAlign.center,
+            style: TextStyles.font32BlueBold,
+          ),
         );
       },
     );
