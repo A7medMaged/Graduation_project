@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 
 class SlidingText extends StatelessWidget {
@@ -16,7 +18,13 @@ class SlidingText extends StatelessWidget {
           child: Text(
             'Be Smarter',
             textAlign: TextAlign.center,
-            style: TextStyles.font32BlueBold,
+            style: TextStyles.font32BlueBold.copyWith(
+              fontFamily:
+                  GoogleFonts.creepsterTextTheme(
+                    ThemeData.dark().textTheme,
+                  ).bodyLarge!.fontFamily,
+              color: mainBlue,
+            ),
           ),
         );
       },

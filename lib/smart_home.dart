@@ -27,9 +27,7 @@ class _SmartHomeAppState extends State<SmartHomeApp> {
         title: 'Smart Home App',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: black,
-          textTheme: GoogleFonts.josefinSansTextTheme(
-            ThemeData.dark().textTheme,
-          ),
+          textTheme: GoogleFonts.exo2TextTheme(ThemeData.dark().textTheme),
         ),
         debugShowCheckedModeBanner: false,
       ),
