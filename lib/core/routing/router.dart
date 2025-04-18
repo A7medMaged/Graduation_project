@@ -2,10 +2,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/features/home_screen/presentation/home_screen.dart';
-import 'package:smart_home/features/login_screen/data/cubit/login_cubit.dart';
-import 'package:smart_home/features/login_screen/data/login_repo.dart';
-import 'package:smart_home/features/login_screen/presentation/login_screen.dart';
-import 'package:smart_home/features/register_screen/presentation/register_screen.dart';
+import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
+import 'package:smart_home/features/login/data/login_repo.dart';
+import 'package:smart_home/features/login/presentation/login_screen.dart';
+import 'package:smart_home/features/register/data/cubit/register_cubit.dart';
+import 'package:smart_home/features/register/data/register_repo.dart';
+import 'package:smart_home/features/register/presentation/register_screen.dart';
 import 'package:smart_home/features/splash_screen/presentation/splash_screen.dart';
 
 class AppRouter {
@@ -26,7 +28,11 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.registerScreen,
-        builder: (context, state) => const RegisterScreen(),
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) => RegisterCubit(RegisterRepo()),
+              child: const RegisterScreen(),
+            ),
       ),
     ],
   );

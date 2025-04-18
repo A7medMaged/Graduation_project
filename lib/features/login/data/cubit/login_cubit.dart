@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:smart_home/features/login_screen/data/login_repo.dart';
+import 'package:smart_home/features/login/data/login_repo.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final LoginRepo _authRepo = LoginRepo();
-  LoginCubit(authRepo) : super(LoginInitial());
+  final LoginRepo _loginRepo = LoginRepo();
+  LoginCubit(loginRepo) : super(LoginInitial());
 
   Future<void> login(String email, String password) async {
     emit(LoginLoading());
     try {
-      await _authRepo.login(email, password);
+      await _loginRepo.login(email, password);
       emit(LoginSuccess());
     } catch (e) {
       emit(LoginFailure(e.toString()));
@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> logout() async {
     emit(AuthLoading());
     try {
-      await _authRepo.logout();
+      await _loginRepo.logout();
       emit(Unauthenticated());
     } catch (e) {
       emit(AuthError(e.toString()));

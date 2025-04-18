@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:smart_home/core/helper/app_regex.dart';
+import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
-import 'package:smart_home/features/register_screen/presentation/widgets/back_to_login.dart';
+import 'package:smart_home/features/register/data/cubit/register_cubit.dart';
+import 'package:smart_home/features/register/presentation/widgets/back_to_login.dart';
 
 import '../../../core/widgets/app_text_button.dart';
 
@@ -142,10 +146,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
                         SizedBox(height: 40.h),
-                        AppTextButton(
-                          buttonText: "Sign Up",
-                          textStyle: TextStyles.font16WhiteSemiBold,
-                          onPressed: () {},
+                        BlocConsumer<RegisterCubit, RegisterState>(
+                          listener: (context, state) {
+                            if (state is RegisterSuccess) {
+                              GoRouter.of(context).go(AppRoutes.loginScreen);
+                            } else if (state is RegisterFailure) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(state.error)),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            if (state is RegisterLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return AppTextButton(
+                              buttonText: "Sign Up",
+                              textStyle: TextStyles.font16WhiteSemiBold,
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  context.read<RegisterCubit>().register(
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                    name: nameController.text.trim(),
+                                    phone: phoneController.text.trim(),
+                                    role: _selectedRole,
+                                  );
+                                }
+                              },
+                            );
+                          },
                         ),
                         SizedBox(height: 20.h),
                         const Center(child: BackToLoginScreen()),

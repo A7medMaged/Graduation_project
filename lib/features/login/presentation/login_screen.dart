@@ -10,9 +10,9 @@ import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_button.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
-import 'package:smart_home/features/login_screen/data/cubit/login_cubit.dart';
-import 'package:smart_home/features/login_screen/presentation/widgets/do_not_have_accont.dart';
-import 'package:smart_home/features/login_screen/presentation/widgets/terms_condition.dart';
+import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
+import 'package:smart_home/features/login/presentation/widgets/do_not_have_accont.dart';
+import 'package:smart_home/features/login/presentation/widgets/terms_condition.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
