@@ -26,7 +26,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
 
   void navigateToHome() {
     Future.delayed(Duration(seconds: 2), () {
-      GoRouter.of(context).push(AppRoutes.loginScreen);
+      GoRouter.of(context).pushReplacement(AppRoutes.loginScreen);
     });
   }
 

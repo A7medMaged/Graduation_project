@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371840185734",
+    "project_id": "graduation-project-bumgd17",
+    "storage_bucket": "graduation-project-bumgd17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371840185734:android:9760fefd08d5aa98d1a807",
+        "android_client_info": {
+          "package_name": "com.example.smart_home"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr7hgjahxcQkUsBAlB6MEi9Mjt14MZe5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
