@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/web.dart';
@@ -8,6 +10,7 @@ import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_button.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
+import 'package:smart_home/features/login_screen/data/cubit/login_cubit.dart';
 import 'package:smart_home/features/login_screen/presentation/widgets/do_not_have_accont.dart';
 import 'package:smart_home/features/login_screen/presentation/widgets/terms_condition.dart';
 
@@ -93,9 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: AlignmentDirectional.centerEnd,
                         child: GestureDetector(
                           onTap: () {
-                            // FirebaseAuth.instance.sendPasswordResetEmail(
-                            //   email: _emailController.text.trim(),
-                            // );
+                            FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: _emailController.text.trim(),
+                            );
                           },
                           child: Text(
                             'Forgot Password',
@@ -104,11 +107,88 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       SizedBox(height: 20.h),
-                      AppTextButton(
-                        buttonText: "Sign In",
-                        textStyle: TextStyles.font16WhiteSemiBold,
-                        onPressed: () {
-                          GoRouter.of(context).push(AppRoutes.homeScreen);
+                      BlocConsumer<LoginCubit, LoginState>(
+                        listener: (context, state) {
+                          if (state is LoginSuccess) {
+                            GoRouter.of(
+                              context,
+                            ).pushReplacement(AppRoutes.homeScreen);
+                          } else if (state is LoginFailure) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(state.error)),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is LoginLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return AppTextButton(
+                            buttonText: "Sign In",
+                            textStyle: TextStyles.font16WhiteSemiBold,
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                try {
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                        email: _emailController.text.trim(),
+                                        password:
+                                            _passwordController.text.trim(),
+                                      );
+                                  await FirebaseAuth.instance.currentUser!
+                                      .reload();
+
+                                  if (credential.user!.emailVerified) {
+                                    setState(() {
+                                      GoRouter.of(
+                                        context,
+                                      ).pushReplacement(AppRoutes.homeScreen);
+                                    });
+                                  } else {
+                                    FirebaseAuth.instance.currentUser!
+                                        .sendEmailVerification();
+                                    // ignore: use_build_context_synchronously
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'Please verify your email',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                } on FirebaseAuthException catch (e) {
+                                  // ignore: unused_local_variable
+                                  String errorMessage;
+                                  switch (e.code) {
+                                    case 'invalid-email':
+                                      errorMessage =
+                                          'The email address is not valid.';
+                                      break;
+                                    case 'user-disabled':
+                                      errorMessage =
+                                          'The user account has been disabled.';
+                                      break;
+                                    case 'user-not-found':
+                                      errorMessage =
+                                          'No user found with this email.';
+                                      break;
+                                    case 'wrong-password':
+                                      errorMessage = 'Incorrect password.';
+                                      break;
+                                    default:
+                                      errorMessage =
+                                          'An unknown error occurred.';
+                                  }
+                                } catch (e) {
+                                  logger.e(e);
+                                }
+                              } else {
+                                logger.e('Form is not valid');
+                              }
+                            },
+                          );
                         },
                       ),
                       SizedBox(height: 16.h),
