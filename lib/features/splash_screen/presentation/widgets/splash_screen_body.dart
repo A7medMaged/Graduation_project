@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/helper/assets.dart';
@@ -26,8 +27,12 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
 
   void navigateToHome() {
     Future.delayed(Duration(seconds: 4), () {
-      // ignore: use_build_context_synchronously
-      GoRouter.of(context).pushReplacement(AppRoutes.loginScreen);
+      (FirebaseAuth.instance.currentUser != null &&
+              FirebaseAuth.instance.currentUser!.emailVerified)
+          // ignore: use_build_context_synchronously
+          ? GoRouter.of(context).go(AppRoutes.homeScreen)
+          // ignore: use_build_context_synchronously
+          : GoRouter.of(context).go(AppRoutes.loginScreen);
     });
   }
 
