@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/helper/assets.dart';
+import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/splash_screen/presentation/widgets/sliding_text.dart';
 
@@ -23,7 +25,9 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   }
 
   void navigateToHome() {
-    Future.delayed(Duration(seconds: 2), () {});
+    Future.delayed(Duration(seconds: 2), () {
+      GoRouter.of(context).push(AppRoutes.homeScreen);
+    });
   }
 
   void initSlidingAnimation() {

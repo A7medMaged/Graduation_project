@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:smart_home/core/routing/router.dart';
 import 'package:smart_home/core/theming/colors.dart';
-import 'package:smart_home/features/splash_screen/presentation/splash_screen.dart';
 
 class SmartHomeApp extends StatefulWidget {
-  const SmartHomeApp({super.key});
+  const SmartHomeApp({super.key, required this.appRouter});
+  final AppRouter appRouter;
 
   @override
   State<SmartHomeApp> createState() => _SmartHomeAppState();
@@ -21,8 +22,8 @@ class _SmartHomeAppState extends State<SmartHomeApp> {
     return ScreenUtilInit(
       minTextAdapt: true,
       designSize: const Size(375, 812),
-      child: MaterialApp(
-        home: SplashScreen(),
+      child: MaterialApp.router(
+        routerConfig: AppRouter.router,
         title: 'Smart Home App',
         theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: black,
