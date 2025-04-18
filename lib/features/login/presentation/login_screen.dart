@@ -13,6 +13,7 @@ import 'package:smart_home/core/widgets/app_text_form_field.dart';
 import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/presentation/widgets/do_not_have_accont.dart';
 import 'package:smart_home/features/login/presentation/widgets/terms_condition.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -95,9 +96,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: GestureDetector(
-                          onTap: () {
-                            FirebaseAuth.instance.sendPasswordResetEmail(
-                              email: _emailController.text.trim(),
+                          onTap: () async {
+                            await FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: _emailController.text,
+                            );
+                            toastification.show(
+                              // ignore: use_build_context_synchronously
+                              context: context,
+                              title: const Text('Warning!'),
+                              description: const Text(
+                                'Password reset email sent!',
+                              ),
+                              type: ToastificationType.warning,
+                              style: ToastificationStyle.flatColored,
+                              autoCloseDuration: const Duration(seconds: 5),
                             );
                           },
                           child: Text(
@@ -145,6 +157,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                       GoRouter.of(
                                         context,
                                       ).pushReplacement(AppRoutes.homeScreen);
+                                      toastification.show(
+                                        context: context,
+                                        title: const Text('Success!'),
+                                        description: const Text(
+                                          'Login successful!',
+                                        ),
+                                        type: ToastificationType.success,
+                                        style: ToastificationStyle.flat,
+                                        autoCloseDuration: const Duration(
+                                          seconds: 5,
+                                        ),
+                                      );
                                     });
                                   } else {
                                     FirebaseAuth.instance.currentUser!
