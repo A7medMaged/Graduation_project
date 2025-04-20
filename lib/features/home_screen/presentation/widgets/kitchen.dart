@@ -10,7 +10,10 @@ class Kitchen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Kitchen Sensors'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Kitchen Sensors'),
+        backgroundColor: Colors.transparent,
+      ),
       body: BlocConsumer<SensorsCubit, SensorsState>(
         listener: (context, state) {
           if (state.gasDetected) {
@@ -54,7 +57,7 @@ class Kitchen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 8,
+              spacing: 25,
               children: [
                 SizedBox(
                   width: double.infinity,

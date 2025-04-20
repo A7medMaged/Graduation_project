@@ -14,21 +14,18 @@ class RoomTwo extends StatefulWidget {
 class _RoomTwoState extends State<RoomTwo> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Room 2'), centerTitle: true),
-      body: BlocBuilder<LedsCubit, LedsState>(
-        builder: (context, state) {
-          return DeviceControl(
-            isOn: state.room2Led,
-            iconOn: Icons.lightbulb,
-            iconOff: Icons.lightbulb_outline,
-            deviceName: 'Led',
-            onPressed: () {
-              context.read<LedsCubit>().toggleRoom2Led();
-            },
-          );
-        },
-      ),
+    return BlocBuilder<LedsCubit, LedsState>(
+      builder: (context, state) {
+        return DeviceControl(
+          isOn: state.room2Led,
+          iconOn: Icons.lightbulb,
+          iconOff: Icons.lightbulb_outline,
+          deviceName: 'Room 2 Led',
+          onPressed: () {
+            context.read<LedsCubit>().toggleRoom2Led();
+          },
+        );
+      },
     );
   }
 }

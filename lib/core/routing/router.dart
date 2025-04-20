@@ -9,6 +9,7 @@ import 'package:smart_home/features/home_screen/presentation/home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/kitchen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/rooms.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_profile.dart';
 import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/data/login_repo.dart';
@@ -45,6 +46,14 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.userScreen,
         builder: (context, state) => const UserProfileScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.rooms,
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) => LedsCubit(LedsRepo()),
+              child: const Rooms(),
+            ),
       ),
       GoRoute(
         path: AppRoutes.roomOne,
