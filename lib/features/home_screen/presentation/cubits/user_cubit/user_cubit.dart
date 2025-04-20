@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_home/features/home_screen/data/user_model.dart';
-import 'package:smart_home/features/home_screen/data/user_repo.dart';
+import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
 
 import 'user_state.dart';
 
