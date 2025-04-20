@@ -36,14 +36,14 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.kitchen);
               },
-              icon: Icons.kitchen,
+              svgName: 'kitchen',
             ),
             HomeControl(
               roomName: 'Rooms',
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.rooms);
               },
-              icon: Icons.living,
+              svgName: 'room',
             ),
           ],
         ),

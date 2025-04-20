@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_state.dart';
 import 'package:toastification/toastification.dart';
@@ -66,10 +67,14 @@ class Kitchen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.gas_meter,
-                          color: state.gasDetected ? Colors.red : Colors.grey,
-                          size: 60,
+                        SvgPicture.asset(
+                          'assets/svgs/smoke.svg',
+                          height: 62,
+                          width: 62,
+                          colorFilter: ColorFilter.mode(
+                            state.gasDetected ? Colors.red : Colors.grey,
+                            BlendMode.srcIn,
+                          ),
                         ),
                         const SizedBox(height: 5),
                         Text(
@@ -90,10 +95,14 @@ class Kitchen extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.fireplace,
-                          color: state.flameDetected ? Colors.red : Colors.grey,
-                          size: 60,
+                        SvgPicture.asset(
+                          'assets/svgs/flame.svg',
+                          height: 62,
+                          width: 62,
+                          colorFilter: ColorFilter.mode(
+                            state.flameDetected ? Colors.red : Colors.grey,
+                            BlendMode.srcIn,
+                          ),
                         ),
                         const SizedBox(height: 5),
                         Text(
