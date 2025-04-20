@@ -97,20 +97,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: AlignmentDirectional.centerEnd,
                         child: GestureDetector(
                           onTap: () async {
-                            await FirebaseAuth.instance.sendPasswordResetEmail(
-                              email: _emailController.text,
-                            );
-                            toastification.show(
+                            try {
+                              await FirebaseAuth.instance
+                                  .sendPasswordResetEmail(
+                                    email: _emailController.text.trim(),
+                                  );
+                              toastification.show(
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                title: const Text('Warning!'),
+                                description: const Text(
+                                  'Password reset email sent',
+                                ),
+                                type: ToastificationType.warning,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: const Duration(seconds: 5),
+                              );
+                            } on FirebaseAuthException catch (e) {
                               // ignore: use_build_context_synchronously
-                              context: context,
-                              title: const Text('Warning!'),
-                              description: const Text(
-                                'Password reset email sent!',
-                              ),
-                              type: ToastificationType.warning,
-                              style: ToastificationStyle.flatColored,
-                              autoCloseDuration: const Duration(seconds: 5),
-                            );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Error: ${e.message}")),
+                              );
+                            }
                           },
                           child: Text(
                             'Forgot Password',
@@ -143,45 +151,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 try {
-                                  final credential = await FirebaseAuth.instance
-                                      .signInWithEmailAndPassword(
-                                        email: _emailController.text.trim(),
-                                        password:
-                                            _passwordController.text.trim(),
-                                      );
-                                  await FirebaseAuth.instance.currentUser!
-                                      .reload();
-
-                                  if (credential.user!.emailVerified) {
-                                    setState(() {
-                                      GoRouter.of(
-                                        context,
-                                      ).pushReplacement(AppRoutes.homeScreen);
-                                      toastification.show(
-                                        context: context,
-                                        title: const Text('Success!'),
-                                        description: const Text(
-                                          'Login successful!',
-                                        ),
-                                        type: ToastificationType.success,
-                                        style: ToastificationStyle.flat,
-                                        autoCloseDuration: const Duration(
-                                          seconds: 5,
-                                        ),
-                                      );
-                                    });
-                                  } else {
-                                    FirebaseAuth.instance.currentUser!
-                                        .sendEmailVerification();
-                                    // ignore: use_build_context_synchronously
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Please verify your email',
-                                        ),
-                                      ),
-                                    );
-                                  }
+                                  context.read<LoginCubit>().login(
+                                    _emailController.text.trim(),
+                                    _passwordController.text.trim(),
+                                  );
                                 } on FirebaseAuthException catch (e) {
                                   // ignore: unused_local_variable
                                   String errorMessage;

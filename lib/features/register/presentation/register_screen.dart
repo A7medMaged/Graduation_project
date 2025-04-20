@@ -9,6 +9,7 @@ import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
 import 'package:smart_home/features/register/data/cubit/register_cubit.dart';
 import 'package:smart_home/features/register/presentation/widgets/back_to_login.dart';
+import 'package:toastification/toastification.dart';
 
 import '../../../core/widgets/app_text_button.dart';
 
@@ -173,6 +174,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     name: nameController.text.trim(),
                                     phone: phoneController.text.trim(),
                                     role: _selectedRole,
+                                  );
+                                  toastification.show(
+                                    context: context,
+                                    title: const Text('Success!'),
+                                    description: const Text(
+                                      'Account created successfully!',
+                                    ),
+                                    type: ToastificationType.success,
+                                    style: ToastificationStyle.flat,
+                                    autoCloseDuration: const Duration(
+                                      seconds: 5,
+                                    ),
                                   );
                                 }
                               },
