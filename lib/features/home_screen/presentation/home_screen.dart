@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
-import 'package:smart_home/core/theming/text_style.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/home_control.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,10 +26,27 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Text(
-          'Welcome to the Home Screen!',
-          style: TextStyles.font24BlueBold,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          spacing: 16,
+          children: [
+            HomeControl(roomName: 'Kitchen', onTap: () {}, icon: Icons.kitchen),
+            HomeControl(
+              roomName: 'Room 1',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.roomOne);
+              },
+              icon: Icons.living,
+            ),
+            HomeControl(
+              roomName: 'Room 2',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.roomTwo);
+              },
+              icon: Icons.living,
+            ),
+          ],
         ),
       ),
     );
