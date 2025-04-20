@@ -1,7 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
+import 'package:smart_home/features/home_screen/data/repos/sensors_repo.dart';
+import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/home_screen.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/kitchen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_profile.dart';
@@ -48,6 +51,14 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.roomTwo,
         builder: (context, state) => const RoomTwo(),
+      ),
+      GoRoute(
+        path: AppRoutes.kitchen,
+        builder:
+            (context, state) => BlocProvider(
+              create: (context) => SensorsCubit(SensorsRepo()),
+              child: const Kitchen(),
+            ),
       ),
     ],
   );

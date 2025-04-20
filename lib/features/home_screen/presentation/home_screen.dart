@@ -31,7 +31,13 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           spacing: 16,
           children: [
-            HomeControl(roomName: 'Kitchen', onTap: () {}, icon: Icons.kitchen),
+            HomeControl(
+              roomName: 'Kitchen',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.kitchen);
+              },
+              icon: Icons.kitchen,
+            ),
             HomeControl(
               roomName: 'Room 1',
               onTap: () {

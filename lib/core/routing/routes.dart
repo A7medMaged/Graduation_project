@@ -5,4 +5,5 @@ class AppRoutes {
   static const userScreen = '/userScreen';
   static const roomOne = '/roomOne';
   static const roomTwo = '/roomTwo';
+  static const kitchen = '/kitchen';
 }
