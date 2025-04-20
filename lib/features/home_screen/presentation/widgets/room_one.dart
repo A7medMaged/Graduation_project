@@ -15,7 +15,7 @@ class _RoomOneState extends State<RoomOne> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Room One'), centerTitle: true),
+      appBar: AppBar(title: const Text('Room 1'), centerTitle: true),
       body: BlocBuilder<LedsCubit, LedsState>(
         builder: (context, state) {
           return DeviceControl(
