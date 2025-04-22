@@ -14,5 +14,5 @@ UserRole getRoleFromString(String role) {
 }
 
 String roleToString(UserRole role) {
-  return role.name;
+  return role.toString();
 }

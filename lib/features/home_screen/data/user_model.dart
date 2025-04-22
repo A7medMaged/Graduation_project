@@ -35,7 +35,7 @@ class UserModel {
       'email': email,
       'name': name,
       'phone': phone,
-      'role': getRoleFromString(role.toString()),
+      'role': roleToString(role),
       'registerTime': registerTime,
     };
   }
