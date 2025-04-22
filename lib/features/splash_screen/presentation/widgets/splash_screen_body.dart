@@ -36,8 +36,6 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
         final userRepo = UserRepo();
         final userData = await userRepo.getUserDetails(user.uid);
         final userModel = UserModel.fromMap(userData);
-
-        // التوجيه حسب الدور
         switch (userModel.role) {
           case UserRole.father:
             if (mounted) GoRouter.of(context).go(AppRoutes.fatherScreen);
