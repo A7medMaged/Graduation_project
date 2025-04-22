@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/features/home_screen/data/repos/leds_repo.dart';
 import 'package:smart_home/features/home_screen/data/repos/sensors_repo.dart';
+import 'package:smart_home/features/home_screen/presentation/child_home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
-import 'package:smart_home/features/home_screen/presentation/home_screen.dart';
+import 'package:smart_home/features/home_screen/presentation/father_home_screen.dart';
+import 'package:smart_home/features/home_screen/presentation/mother_home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/kitchen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
@@ -25,7 +27,7 @@ class AppRouter {
       GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
       GoRoute(
         path: AppRoutes.homeScreen,
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => const FatherHomeScreen(),
       ),
       GoRoute(
         path: AppRoutes.loginScreen,
@@ -78,6 +80,18 @@ class AppRouter {
               create: (context) => SensorsCubit(SensorsRepo()),
               child: const Kitchen(),
             ),
+      ),
+      GoRoute(
+        path: AppRoutes.fatherScreen,
+        builder: (context, state) => const FatherHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.motherScreen,
+        builder: (context, state) => const MotherHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.childScreen,
+        builder: (context, state) => const ChildHomeScreen(),
       ),
     ],
   );

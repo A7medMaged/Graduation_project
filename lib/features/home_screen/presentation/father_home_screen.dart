@@ -5,8 +5,8 @@ import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/home_control.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class FatherHomeScreen extends StatelessWidget {
+  const FatherHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +44,20 @@ class HomeScreen extends StatelessWidget {
                 GoRouter.of(context).push(AppRoutes.rooms);
               },
               svgName: 'room',
+            ),
+            HomeControl(
+              roomName: 'Garage',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.rooms);
+              },
+              svgName: 'garage',
+            ),
+            HomeControl(
+              roomName: 'Garden',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.rooms);
+              },
+              svgName: 'garden',
             ),
           ],
         ),

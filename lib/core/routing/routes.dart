@@ -7,4 +7,7 @@ class AppRoutes {
   static const roomOne = '/roomOne';
   static const roomTwo = '/roomTwo';
   static const kitchen = '/kitchen';
+  static const fatherScreen = '/father';
+  static const motherScreen = '/mother';
+  static const childScreen = '/child';
 }

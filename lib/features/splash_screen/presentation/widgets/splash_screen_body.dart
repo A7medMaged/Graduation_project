@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/assets.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
+import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
+import 'package:smart_home/features/home_screen/data/user_model.dart';
 import 'package:smart_home/features/splash_screen/presentation/widgets/sliding_text.dart';
 
 class SplashScreenBody extends StatefulWidget {
@@ -26,13 +29,29 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   }
 
   void navigateToHome() {
-    Future.delayed(Duration(seconds: 4), () {
-      (FirebaseAuth.instance.currentUser != null &&
-              FirebaseAuth.instance.currentUser!.emailVerified)
-          // ignore: use_build_context_synchronously
-          ? GoRouter.of(context).go(AppRoutes.homeScreen)
-          // ignore: use_build_context_synchronously
-          : GoRouter.of(context).go(AppRoutes.loginScreen);
+    Future.delayed(Duration(seconds: 4), () async {
+      final user = FirebaseAuth.instance.currentUser;
+
+      if (user != null && user.emailVerified) {
+        final userRepo = UserRepo();
+        final userData = await userRepo.getUserDetails(user.uid);
+        final userModel = UserModel.fromMap(userData);
+
+        // التوجيه حسب الدور
+        switch (userModel.role) {
+          case UserRole.father:
+            if (mounted) GoRouter.of(context).go(AppRoutes.fatherScreen);
+            break;
+          case UserRole.mother:
+            if (mounted) GoRouter.of(context).go(AppRoutes.motherScreen);
+            break;
+          case UserRole.child:
+            if (mounted) GoRouter.of(context).go(AppRoutes.childScreen);
+            break;
+        }
+      } else {
+        if (mounted) GoRouter.of(context).go(AppRoutes.loginScreen);
+      }
     });
   }
 
