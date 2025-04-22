@@ -62,7 +62,7 @@ class UserProfileScreen extends StatelessWidget {
                       ),
                       Details(
                         title: "Role",
-                        subtitle: user.role,
+                        subtitle: state.user.role.toString(),
                         icon: Icons.verified_user,
                       ),
                       Details(

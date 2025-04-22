@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_home/core/enum/user_role.dart';
 
 class UserModel {
   final String id;
   final String email;
   final String name;
   final String phone;
-  final String role;
+  final UserRole role;
   final DateTime registerTime;
 
   UserModel({
@@ -23,7 +24,7 @@ class UserModel {
       email: map['email'] ?? '',
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
-      role: map['role'] ?? '',
+      role: getRoleFromString(map['role']),
       registerTime: (map['registerTime'] as Timestamp).toDate(),
     );
   }
@@ -34,7 +35,7 @@ class UserModel {
       'email': email,
       'name': name,
       'phone': phone,
-      'role': role,
+      'role': getRoleFromString(role.toString()),
       'registerTime': registerTime,
     };
   }
