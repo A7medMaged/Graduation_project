@@ -29,7 +29,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   }
 
   void navigateToHome() {
-    Future.delayed(Duration(seconds: 4), () async {
+    Future.delayed(Duration(seconds: 2), () async {
       final user = FirebaseAuth.instance.currentUser;
 
       if (user != null && user.emailVerified) {

@@ -31,15 +31,7 @@ class _KitchenState extends State<Kitchen> {
       ),
       body: BlocConsumer<SensorsCubit, SensorsState>(
         listener: (context, state) {
-          if (state.gasDetected) {
-            notificationService.showNotification(
-              body: 'Gas Detected! Please take action immediately.',
-            );
-          } else if (state.flameDetected) {
-            notificationService.showNotification(
-              body: 'Flame Detected! Please take action immediately.',
-            );
-          } else {
+          if (!state.gasDetected && !state.flameDetected) {
             toastification.show(
               // ignore: use_build_context_synchronously
               context: context,

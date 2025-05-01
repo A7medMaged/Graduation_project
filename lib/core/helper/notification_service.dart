@@ -1,40 +1,57 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
+  // Singleton pattern
+  static final NotificationService _instance = NotificationService._internal();
+  factory NotificationService() => _instance;
+  NotificationService._internal();
+
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  late final String? body;
 
   Future<void> initializeNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const InitializationSettings initializationSettings =
-        InitializationSettings(android: initializationSettingsAndroid);
-
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  Future<void> showNotification({required String body}) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-          'channel_id',
-          'channel_name',
-          importance: Importance.max,
-          priority: Priority.high,
-          enableVibration: true,
-          enableLights: true,
+        InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: null,
         );
 
-    const NotificationDetails generalNotificationDetails = NotificationDetails(
-      android: androidDetails,
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse details) {
+        // Handle notification tap
+      },
+    );
+  }
+
+  Future<void> showNotification({
+    int id = 0,
+    String? title = 'Smart Home Alert',
+    required String body,
+  }) async {
+    const AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails(
+          'smart_home_channel',
+          'Smart Home Alerts',
+          channelDescription: 'Alerts from your smart home system',
+          importance: Importance.high,
+          priority: Priority.high,
+          playSound: true,
+          enableVibration: true,
+        );
+
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
     );
 
     await flutterLocalNotificationsPlugin.show(
-      0,
-      'Smart Home',
+      id,
+      title,
       body,
-      generalNotificationDetails,
+      notificationDetails,
     );
   }
 }

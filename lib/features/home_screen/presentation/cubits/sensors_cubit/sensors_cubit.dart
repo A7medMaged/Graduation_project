@@ -26,6 +26,12 @@ class SensorsCubit extends Cubit<SensorsState> {
     });
   }
 
+  void startMointring() {
+    if (_kitchenSubscription == null) {
+      _initStreams();
+    }
+  }
+
   @override
   Future<void> close() {
     _kitchenSubscription?.cancel();
