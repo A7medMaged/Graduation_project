@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smart_home/core/helper/notification_service.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_state.dart';
 import 'package:toastification/toastification.dart';
 
-class Kitchen extends StatelessWidget {
+class Kitchen extends StatefulWidget {
   const Kitchen({super.key});
+
+  @override
+  State<Kitchen> createState() => _KitchenState();
+}
+
+final NotificationService notificationService = NotificationService();
+
+class _KitchenState extends State<Kitchen> {
+  @override
+  void initState() {
+    super.initState();
+    notificationService.initializeNotification();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,28 +32,12 @@ class Kitchen extends StatelessWidget {
       body: BlocConsumer<SensorsCubit, SensorsState>(
         listener: (context, state) {
           if (state.gasDetected) {
-            toastification.show(
-              // ignore: use_build_context_synchronously
-              context: context,
-              title: const Text('Warning!'),
-              description: const Text(
-                'Gas Leak Detected! Please take action immediately.',
-              ),
-              type: ToastificationType.warning,
-              style: ToastificationStyle.minimal,
-              autoCloseDuration: const Duration(seconds: 5),
+            notificationService.showNotification(
+              body: 'Gas Detected! Please take action immediately.',
             );
           } else if (state.flameDetected) {
-            toastification.show(
-              // ignore: use_build_context_synchronously
-              context: context,
-              title: const Text('Warning!'),
-              description: const Text(
-                'Flame Detected! Please take action immediately.',
-              ),
-              type: ToastificationType.warning,
-              style: ToastificationStyle.minimal,
-              autoCloseDuration: const Duration(seconds: 5),
+            notificationService.showNotification(
+              body: 'Flame Detected! Please take action immediately.',
             );
           } else {
             toastification.show(
