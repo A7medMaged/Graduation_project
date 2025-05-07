@@ -150,8 +150,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             if (state is RegisterSuccess) {
                               GoRouter.of(context).go(AppRoutes.loginScreen);
                             } else if (state is RegisterFailure) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(state.error)),
+                              toastification.show(
+                                context: context,
+                                title: Text(state.error),
+                                description: const Text(
+                                  'Account created successfully!',
+                                ),
+                                type: ToastificationType.success,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: const Duration(seconds: 5),
                               );
                             }
                           },
