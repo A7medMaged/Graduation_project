@@ -18,7 +18,10 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('User Profile')),
+      appBar: AppBar(
+        title: const Text('User Profile'),
+        backgroundColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: MultiBlocProvider(
           providers: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:smart_home/core/helper/app_regex.dart';
@@ -21,6 +22,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   var logger = Logger(printer: PrettyPrinter());
   bool isObscureText = true;
   final formKey = GlobalKey<FormState>();
@@ -76,6 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: 18),
                   Form(
                     key: formKey,
+                    autovalidateMode: autovalidateMode,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -84,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         AppTextFormField(
                           controller: nameController,
                           hintText: 'Enter your name',
-                          suffixIcon: const Icon(Icons.person_outline),
+                          prefixIcon: const Icon(FontAwesomeIcons.user),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your name';
@@ -97,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         AppTextFormField(
                           controller: phoneController,
                           hintText: 'Enter your phone number',
-                          suffixIcon: const Icon(Icons.phone_outlined),
+                          prefixIcon: const Icon(FontAwesomeIcons.phone),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your phone number';
@@ -110,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         AppTextFormField(
                           controller: emailController,
                           hintText: 'Enter your e-mail',
-                          suffixIcon: const Icon(Icons.email_outlined),
+                          prefixIcon: const Icon(FontAwesomeIcons.envelope),
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -134,10 +137,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                             child: Icon(
                               isObscureText
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
+                                  ? FontAwesomeIcons.eyeSlash
+                                  : FontAwesomeIcons.eye,
                             ),
                           ),
+                          prefixIcon: const Icon(FontAwesomeIcons.key),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a valid password';
@@ -193,6 +197,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   );
                                 }
+                                setState(() {
+                                  autovalidateMode =
+                                      AutovalidateMode.onUserInteraction;
+                                });
                               },
                             );
                           },

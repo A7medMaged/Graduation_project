@@ -14,6 +14,7 @@ import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/presentation/widgets/do_not_have_accont.dart';
 import 'package:smart_home/features/login/presentation/widgets/terms_condition.dart';
 import 'package:toastification/toastification.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   var logger = Logger(printer: PrettyPrinter());
   bool isObscureText = true;
   final formKey = GlobalKey<FormState>();
@@ -50,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20.h),
                 Form(
                   key: formKey,
+                  autovalidateMode: autovalidateMode,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -58,7 +61,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppTextFormField(
                         controller: _emailController,
                         hintText: 'Enter your e-mail',
-                        suffixIcon: const Icon(Icons.email_outlined),
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.envelope,
+                          color: white,
+                        ),
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
@@ -82,9 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Icon(
                             isObscureText
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined,
+                                ? FontAwesomeIcons.eyeSlash
+                                : FontAwesomeIcons.eye,
                           ),
+                        ),
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.key,
+                          color: white,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -150,6 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             textStyle: TextStyles.font16WhiteSemiBold,
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  autovalidateMode =
+                                      AutovalidateMode.onUserInteraction;
+                                });
                                 try {
                                   context.read<LoginCubit>().login(
                                     _emailController.text.trim(),
