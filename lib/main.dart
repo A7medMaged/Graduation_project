@@ -12,7 +12,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().initializeNotification();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  WidgetsFlutterBinding.ensureInitialized();
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
     if (user == null) {
       logger.f('User is currently signed out!');

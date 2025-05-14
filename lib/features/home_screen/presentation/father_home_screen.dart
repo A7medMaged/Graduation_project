@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_home/core/helper/web_view.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/home_control.dart';
@@ -48,14 +49,20 @@ class FatherHomeScreen extends StatelessWidget {
             HomeControl(
               roomName: 'Garage',
               onTap: () {
-                GoRouter.of(context).push(AppRoutes.rooms);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VideoWebView()),
+                );
               },
               svgName: 'garage',
             ),
             HomeControl(
               roomName: 'Garden',
               onTap: () {
-                GoRouter.of(context).push(AppRoutes.rooms);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VideoWebView()),
+                );
               },
               svgName: 'garden',
             ),
