@@ -14,18 +14,32 @@ class RoomOne extends StatefulWidget {
 class _RoomOneState extends State<RoomOne> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LedsCubit, LedsState>(
-      builder: (context, state) {
-        return DeviceControl(
-          isOn: state.room1Led,
-          iconOn: Icons.lightbulb,
-          iconOff: Icons.lightbulb_outline,
-          deviceName: 'Room 1 Led',
-          onPressed: () {
-            context.read<LedsCubit>().toggleRoom1Led();
-          },
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Room 1'),
+        backgroundColor: Colors.transparent,
+      ),
+      body: BlocBuilder<LedsCubit, LedsState>(
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              DeviceControl(
+                isOn: state.room1Led,
+                iconOn: Icons.lightbulb,
+                iconOff: Icons.lightbulb_outline,
+                deviceName: 'Led',
+                onPressed: () {
+                  context.read<LedsCubit>().toggleRoom1Led();
+                },
+              ),
+              const SizedBox(height: 16),
+              Text('Temperature: ${state.tempSensor}°C'),
+              Text('Humidity: ${state.humidity}%'),
+            ],
+          );
+        },
+      ),
     );
   }
 }
