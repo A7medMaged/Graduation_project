@@ -12,15 +12,33 @@ class RoomOne extends StatefulWidget {
 }
 
 class _RoomOneState extends State<RoomOne> {
+  Color _getTempColor(String temp) {
+    final int? t = int.tryParse(temp);
+    if (t == null) return Colors.grey;
+    if (t <= 18) return Colors.blue;
+    if (t <= 26) return Colors.orange;
+    return Colors.red;
+  }
+
+  Color _getHumidityColor(int humidity) {
+    if (humidity < 30) return Colors.blue;
+    if (humidity < 60) return Colors.orange;
+    return Colors.red;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Room 1'),
+        title: const Text('Room 1'),
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: BlocBuilder<LedsCubit, LedsState>(
         builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -34,8 +52,77 @@ class _RoomOneState extends State<RoomOne> {
                 },
               ),
               const SizedBox(height: 16),
-              Text('Temperature: ${state.tempSensor}°C'),
-              Text('Humidity: ${state.humidity}%'),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                elevation: 4,
+                color: Colors.blue[50],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 32,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.thermostat,
+                            color: _getTempColor(state.tempSensor),
+                            size: 36,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '${state.tempSensor}°C',
+                            style: const TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Temperature',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(width: 32),
+                      Column(
+                        children: [
+                          Icon(
+                            Icons.water_drop,
+                            color: _getHumidityColor(state.humidity),
+                            size: 36,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '${state.humidity}%',
+                            style: const TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Humidity',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },

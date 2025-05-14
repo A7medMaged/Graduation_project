@@ -19,59 +19,54 @@ class DeviceControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-      child: SizedBox(
-        width: 180,
-        height: 180,
-        child: Card(
-          elevation: 5,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          surfaceTintColor: isOn ? Colors.green : Colors.white,
-          shadowColor: isOn ? Colors.green : Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 20,
-            children: [
-              Icon(
-                isOn ? iconOn : iconOff,
+    return SizedBox(
+      height: 100,
+      child: Card(
+        elevation: 5,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        surfaceTintColor: isOn ? Colors.green : Colors.white,
+        shadowColor: isOn ? Colors.green : Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 20,
+          children: [
+            Icon(
+              isOn ? iconOn : iconOff,
+              color: isOn ? Colors.black : Colors.grey[600],
+              size: 36,
+            ),
+            Text(
+              deviceName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
                 color: isOn ? Colors.black : Colors.grey[600],
               ),
-              Text(
-                deviceName,
+            ),
+            SizedBox(width: 60),
+            ElevatedButton(
+              onPressed: onPressed,
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                  isOn ? Colors.green : Colors.red,
+                ),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+              ),
+              child: Text(
+                isOn ? 'On' : 'Off',
                 style: TextStyle(
+                  color: white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: isOn ? Colors.black : Colors.grey[600],
                 ),
               ),
-              ElevatedButton(
-                onPressed: onPressed,
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all<Color>(
-                    isOn ? Colors.green : Colors.red,
-                  ),
-                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                child: Text(
-                  isOn ? 'On' : 'Off',
-                  style: TextStyle(
-                    color: white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
