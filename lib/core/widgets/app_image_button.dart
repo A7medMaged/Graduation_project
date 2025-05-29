@@ -32,9 +32,7 @@ class AppImageButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
           ),
         ),
-        backgroundColor: WidgetStatePropertyAll(
-          backgroundColor ?? lightBlue,
-        ),
+        backgroundColor: WidgetStatePropertyAll(backgroundColor ?? lightBlue),
         padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.symmetric(
             horizontal: horizontalPadding?.w ?? 12.w,
@@ -46,11 +44,7 @@ class AppImageButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Image.asset(
-        buttonImage,
-        width: 20.w,
-        height: 20.h,
-      ),
+      child: Image.asset(buttonImage, width: 20.w, height: 20.h),
     );
   }
 }

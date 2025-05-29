@@ -19,10 +19,9 @@ class SlidingText extends StatelessWidget {
             'Be Smarter',
             textAlign: TextAlign.center,
             style: TextStyles.font32BlueBold.copyWith(
-              fontFamily:
-                  GoogleFonts.creepsterTextTheme(
-                    ThemeData.dark().textTheme,
-                  ).bodyLarge!.fontFamily,
+              fontFamily: GoogleFonts.creepsterTextTheme(
+                ThemeData.dark().textTheme,
+              ).bodyLarge!.fontFamily,
               color: mainBlue,
             ),
           ),

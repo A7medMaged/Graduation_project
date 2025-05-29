@@ -16,29 +16,28 @@ class _VideoWebViewState extends State<VideoWebView> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        WebViewController()
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onPageStarted: (url) {
-                setState(() {
-                  loadingPercentage = 0;
-                });
-              },
-              onProgress: (progress) {
-                setState(() {
-                  loadingPercentage = progress;
-                });
-              },
-              onPageFinished: (url) {
-                setState(() {
-                  loadingPercentage = 100;
-                });
-              },
-            ),
-          )
-          ..loadRequest(Uri.parse('https://www.youtube.com/shorts/6jCj6Z1-WfU'))
-          ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    _controller = WebViewController()
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageStarted: (url) {
+            setState(() {
+              loadingPercentage = 0;
+            });
+          },
+          onProgress: (progress) {
+            setState(() {
+              loadingPercentage = progress;
+            });
+          },
+          onPageFinished: (url) {
+            setState(() {
+              loadingPercentage = 100;
+            });
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse('https://www.youtube.com/shorts/6jCj6Z1-WfU'))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
   }
 
   @override
@@ -53,9 +52,9 @@ class _VideoWebViewState extends State<VideoWebView> {
           WebViewWidget(controller: _controller),
           loadingPercentage < 100
               ? LinearProgressIndicator(
-                value: loadingPercentage / 100,
-                color: mainBlue,
-              )
+                  value: loadingPercentage / 100,
+                  color: mainBlue,
+                )
               : Container(),
         ],
       ),

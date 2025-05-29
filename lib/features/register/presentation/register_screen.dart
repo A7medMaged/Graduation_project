@@ -64,13 +64,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     hint: const Text('Select Role'),
                     value: _selectedRole,
-                    items:
-                        ['father', 'mother', 'child'].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                    items: ['father', 'mother', 'child'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                     onChanged: (value) {
                       _selectedRole = value!;
                     },

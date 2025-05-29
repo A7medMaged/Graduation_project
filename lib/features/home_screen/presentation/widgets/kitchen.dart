@@ -99,8 +99,9 @@ class _KitchenState extends State<Kitchen> {
                           state.flameDetected ? 'Flame Detected' : 'No Flame',
                           style: TextStyle(
                             fontSize: 32,
-                            color:
-                                state.flameDetected ? Colors.red : Colors.grey,
+                            color: state.flameDetected
+                                ? Colors.red
+                                : Colors.grey,
                           ),
                         ),
                       ],

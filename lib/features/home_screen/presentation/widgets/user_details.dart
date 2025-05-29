@@ -18,25 +18,12 @@ class Details extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: Icon(
-            icon,
-            size: 32,
-          ),
-          title: Text(
-            title,
-            style: TextStyles.font21WhiteMedium,
-          ),
-          subtitle: Text(
-            subtitle,
-            style: TextStyles.font14GrayRegular,
-          ),
+          leading: Icon(icon, size: 32),
+          title: Text(title, style: TextStyles.font21WhiteMedium),
+          subtitle: Text(subtitle, style: TextStyles.font14GrayRegular),
         ),
         const SizedBox(height: 5),
-        const Divider(
-          thickness: 1,
-          indent: 16,
-          endIndent: 16,
-        ),
+        const Divider(thickness: 1, indent: 16, endIndent: 16),
         const SizedBox(height: 5),
       ],
     );

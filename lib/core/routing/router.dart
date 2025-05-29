@@ -31,19 +31,17 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.loginScreen,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => LoginCubit(LoginRepo()),
-              child: const LoginScreen(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => LoginCubit(LoginRepo()),
+          child: const LoginScreen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.registerScreen,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => RegisterCubit(RegisterRepo()),
-              child: const RegisterScreen(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => RegisterCubit(RegisterRepo()),
+          child: const RegisterScreen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.userScreen,
@@ -51,35 +49,31 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.rooms,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => LedsCubit(LedsRepo()),
-              child: const Rooms(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => LedsCubit(LedsRepo()),
+          child: const Rooms(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.roomOne,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => LedsCubit(LedsRepo()),
-              child: const RoomOne(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => LedsCubit(LedsRepo()),
+          child: const RoomOne(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.roomTwo,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => LedsCubit(LedsRepo()),
-              child: const RoomTwo(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => LedsCubit(LedsRepo()),
+          child: const RoomTwo(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.kitchen,
-        builder:
-            (context, state) => BlocProvider(
-              create: (context) => SensorsCubit(SensorsRepo()),
-              child: const Kitchen(),
-            ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => SensorsCubit(SensorsRepo()),
+          child: const Kitchen(),
+        ),
       ),
       GoRoute(
         path: AppRoutes.fatherScreen,

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 
-
 class DontHaveAccountText extends StatelessWidget {
   const DontHaveAccountText({super.key});
 
@@ -18,10 +17,7 @@ class DontHaveAccountText extends StatelessWidget {
             text: 'Don\'t have an account',
             style: TextStyles.font13LightGrayRegular,
           ),
-          TextSpan(
-            text: '  ',
-            style: TextStyles.font13LightGrayRegular,
-          ),
+          TextSpan(text: '  ', style: TextStyles.font13LightGrayRegular),
           TextSpan(
             text: 'Sign Up',
             style: TextStyles.font13BlueSemiBold,

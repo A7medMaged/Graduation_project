@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 
-
 class BackToLoginScreen extends StatelessWidget {
   const BackToLoginScreen({super.key});
 
@@ -18,10 +17,7 @@ class BackToLoginScreen extends StatelessWidget {
             text: 'Already have an account',
             style: TextStyles.font13LightGrayRegular,
           ),
-          TextSpan(
-            text: ' ',
-            style: TextStyles.font13LightGrayRegular,
-          ),
+          TextSpan(text: ' ', style: TextStyles.font13LightGrayRegular),
           TextSpan(
             text: 'Sign in',
             style: TextStyles.font13BlueSemiBold,
