@@ -10,21 +10,30 @@ class Rooms extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Rooms'), backgroundColor: Colors.transparent),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          HomeControl(
-            roomName: 'Room 1',
-            onTap: () => GoRouter.of(context).push(AppRoutes.roomOne),
-            svgName: 'room',
-          ),
-          const SizedBox(height: 16),
-          HomeControl(
-            roomName: 'Room 2',
-            onTap: () => GoRouter.of(context).push(AppRoutes.roomTwo),
-            svgName: 'room',
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            HomeControl(
+              roomName: 'Room Modes',
+              onTap: () => GoRouter.of(context).push(AppRoutes.mode),
+              svgName: 'room',
+            ),
+            const SizedBox(height: 16),
+            HomeControl(
+              roomName: 'Room 1',
+              onTap: () => GoRouter.of(context).push(AppRoutes.roomOne),
+              svgName: 'room',
+            ),
+            const SizedBox(height: 16),
+            HomeControl(
+              roomName: 'Room 2',
+              onTap: () => GoRouter.of(context).push(AppRoutes.roomTwo),
+              svgName: 'room',
+            ),
+          ],
+        ),
       ),
     );
   }

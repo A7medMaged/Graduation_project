@@ -6,6 +6,8 @@ class DeviceControl extends StatelessWidget {
   final IconData iconOn;
   final IconData iconOff;
   final String deviceName;
+  final String textOn;
+  final String textOff;
   final void Function()? onPressed;
 
   const DeviceControl({
@@ -15,6 +17,8 @@ class DeviceControl extends StatelessWidget {
     required this.iconOff,
     required this.deviceName,
     required this.onPressed,
+    required this.textOn,
+    required this.textOff,
   });
 
   @override
@@ -58,7 +62,7 @@ class DeviceControl extends StatelessWidget {
                 ),
               ),
               child: Text(
-                isOn ? 'On' : 'Off',
+                isOn ? textOn : textOff,
                 style: TextStyle(
                   color: white,
                   fontWeight: FontWeight.bold,

@@ -9,6 +9,7 @@ import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubi
 import 'package:smart_home/features/home_screen/presentation/father_home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/mother_home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/kitchen.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/mode_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/rooms.dart';
@@ -86,6 +87,10 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.childScreen,
         builder: (context, state) => const ChildHomeScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.mode,
+        builder: (context, state) => const ToggleScreen(),
       ),
     ],
   );
