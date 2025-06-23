@@ -47,7 +47,17 @@ class FatherHomeScreen extends StatelessWidget {
               svgName: 'room',
             ),
             HomeControl(
-              roomName: 'Garage',
+              roomName: 'Door Cam',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VideoWebView()),
+                );
+              },
+              svgName: 'cam',
+            ),
+            HomeControl(
+              roomName: 'Garge',
               onTap: () {
                 Navigator.push(
                   context,
@@ -55,16 +65,6 @@ class FatherHomeScreen extends StatelessWidget {
                 );
               },
               svgName: 'garage',
-            ),
-            HomeControl(
-              roomName: 'Garden',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => VideoWebView()),
-                );
-              },
-              svgName: 'garden',
             ),
           ],
         ),

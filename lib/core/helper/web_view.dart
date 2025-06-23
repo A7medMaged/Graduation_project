@@ -36,7 +36,7 @@ class _VideoWebViewState extends State<VideoWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('http://192.168.1.9:5000/face'))
+      ..loadRequest(Uri.parse('http://192.168.1.9:5000/fire'))
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
   }
 
