@@ -36,7 +36,7 @@ class _VideoWebViewState extends State<VideoWebView> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://www.youtube.com/shorts/6jCj6Z1-WfU'))
+      ..loadRequest(Uri.parse('http://192.168.1.9:5000/face'))
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
   }
 
