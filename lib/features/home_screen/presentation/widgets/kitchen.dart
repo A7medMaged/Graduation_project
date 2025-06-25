@@ -68,7 +68,9 @@ class _KitchenState extends State<Kitchen> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          state.gasDetected ? 'Gas Detected' : 'No Gas',
+                          state.gasDetected
+                              ? 'Gas Detected'
+                              : 'No Gas Detected',
                           style: TextStyle(
                             fontSize: 32,
                             color: state.gasDetected ? Colors.red : Colors.grey,
@@ -96,7 +98,9 @@ class _KitchenState extends State<Kitchen> {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          state.flameDetected ? 'Flame Detected' : 'No Flame',
+                          state.flameDetected
+                              ? 'Fire Detected'
+                              : 'No Fire Detected',
                           style: TextStyle(
                             fontSize: 32,
                             color: state.flameDetected

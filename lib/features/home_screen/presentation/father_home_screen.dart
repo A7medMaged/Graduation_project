@@ -47,24 +47,24 @@ class FatherHomeScreen extends StatelessWidget {
               svgName: 'room',
             ),
             HomeControl(
-              roomName: 'Door Cam',
+              roomName: 'Fire Camera',
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => FireCam()),
                 );
               },
-              svgName: 'cam',
+              svgName: 'flame',
             ),
             HomeControl(
-              roomName: 'Garge',
+              roomName: 'Face Recognition',
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => FireCam()),
                 );
               },
-              svgName: 'garage',
+              svgName: 'face',
             ),
           ],
         ),

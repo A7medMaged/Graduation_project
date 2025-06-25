@@ -18,7 +18,7 @@ class SensorsCubit extends Cubit<SensorsState> {
       if (!isClosed) {
         emit(
           state.copyWith(
-            flameDetected: sensors['flame_sensor'] == 1,
+            flameDetected: sensors['fire_sensor'] == 1,
             gasDetected: sensors['gas_sensor'] == 1,
           ),
         );
