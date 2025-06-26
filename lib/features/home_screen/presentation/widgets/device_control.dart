@@ -33,7 +33,7 @@ class DeviceControl extends StatelessWidget {
         shadowColor: isOn ? Colors.green : Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 8,
+          spacing: 12,
           children: [
             Icon(
               isOn ? iconOn : iconOff,
@@ -44,7 +44,7 @@ class DeviceControl extends StatelessWidget {
               deviceName,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 28,
+                fontSize: 26,
                 color: isOn ? Colors.black : Colors.grey[600],
               ),
             ),
