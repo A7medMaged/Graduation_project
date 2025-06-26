@@ -5,38 +5,22 @@ import 'mode_state.dart';
 
 class ModeCubit extends Cubit<ModeState> {
   final ModeRepository repo;
-  StreamSubscription<bool?>? _r1Sub;
-  StreamSubscription<bool?>? _r2Sub;
+  StreamSubscription<bool?>? _rSub;
 
   ModeCubit(this.repo) : super(const ModeState()) {
-    _r1Sub = repo.streamR1().listen((value) {
-      emit(
-        state.copyWith(
-          automaticR1: value,
-          isLoading: false, 
-        ),
-      );
-    });
-
-    _r2Sub = repo.streamR2().listen((value) {
-      emit(state.copyWith(automaticR2: value));
+    _rSub = repo.streamR().listen((value) {
+      emit(state.copyWith(automaticR1: value, isLoading: false));
     });
   }
 
   void toggleR1() {
-    final current = state.automaticR1 ?? false;
-    repo.setR1(!current);
-  }
-
-  void toggleR2() {
-    final current = state.automaticR2 ?? false;
-    repo.setR2(!current);
+    final current = state.automaticR ?? false;
+    repo.setR(!current);
   }
 
   @override
   Future<void> close() {
-    _r1Sub?.cancel();
-    _r2Sub?.cancel();
+    _rSub?.cancel();
     return super.close();
   }
 }

@@ -46,24 +46,12 @@ class _ToggleScreenContent extends StatelessWidget {
                     DeviceControl(
                       textOn: 'True',
                       textOff: 'False',
-                      isOn: state.automaticR1 ?? false,
+                      isOn: state.automaticR ?? false,
                       iconOn: FontAwesomeIcons.toggleOn,
                       iconOff: FontAwesomeIcons.toggleOff,
-                      deviceName: 'Room 1 Mode',
+                      deviceName: 'Rooms Mode',
                       onPressed: () {
                         context.read<ModeCubit>().toggleR1();
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    DeviceControl(
-                      textOn: 'True',
-                      textOff: 'False',
-                      isOn: state.automaticR2 ?? false,
-                      iconOn: FontAwesomeIcons.toggleOn,
-                      iconOff: FontAwesomeIcons.toggleOff,
-                      deviceName: 'Room 2 Mode',
-                      onPressed: () {
-                        context.read<ModeCubit>().toggleR2();
                       },
                     ),
                   ],
