@@ -36,7 +36,7 @@ class _KitchenState extends State<Kitchen> {
               // ignore: use_build_context_synchronously
               context: context,
               title: const Text('All Clear!'),
-              description: const Text('No gas or flame detected.'),
+              description: const Text('No gas or fire detected.'),
               type: ToastificationType.success,
               style: ToastificationStyle.minimal,
               autoCloseDuration: const Duration(seconds: 5),

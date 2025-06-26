@@ -31,7 +31,7 @@ class _GlobalSensorsObserverState extends State<GlobalSensorsObserver> {
 
         if (state.flameDetected && !_previousFlameState) {
           _notificationService.showNotification(
-            body: 'Flame Detected! Please take action immediately.',
+            body: 'Fire Detected! Please take action immediately.',
           );
         }
 

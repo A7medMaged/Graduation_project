@@ -1,19 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class FireCam extends StatefulWidget {
-  const FireCam({super.key});
+class FaceCam extends StatefulWidget {
+  const FaceCam({super.key});
 
   @override
-  State<FireCam> createState() => _FireCamState();
+  State<FaceCam> createState() => _FaceCamState();
 }
 
-class _FireCamState extends State<FireCam> {
+class _FaceCamState extends State<FaceCam> {
   late final WebViewController _controller;
   var loadingPercentage = 0;
   String? streamUrl;
+  String? faceName;
+  StreamSubscription<DatabaseEvent>? nameSubscription;
 
   @override
   void initState() {
@@ -35,17 +39,18 @@ class _FireCamState extends State<FireCam> {
       );
 
     fetchStreamUrl();
+    listenToNameChanges();
   }
 
   Future<void> fetchStreamUrl() async {
     try {
-      DatabaseReference ref = FirebaseDatabase.instance.ref(
-        'stream/camera1/url',
+      DatabaseReference urlRef = FirebaseDatabase.instance.ref(
+        'stream/camera2/url',
       );
-      DatabaseEvent event = await ref.once();
+      DatabaseEvent urlEvent = await urlRef.once();
+      final url = urlEvent.snapshot.value?.toString();
 
-      final url = event.snapshot.value?.toString();
-      if (url != null && url.isNotEmpty) {
+      if (mounted && url != null && url.isNotEmpty) {
         setState(() {
           streamUrl = url;
         });
@@ -61,11 +66,32 @@ class _FireCamState extends State<FireCam> {
     }
   }
 
+  void listenToNameChanges() {
+    final nameRef = FirebaseDatabase.instance.ref('faces/log/faces/0');
+
+    nameSubscription = nameRef.onValue.listen((event) {
+      final name = event.snapshot.value?.toString();
+      if (mounted) {
+        setState(() {
+          faceName = name;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    nameSubscription?.cancel(); // إلغاء الاشتراك عند الخروج من الصفحة
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Fire Camera"),
+        title: Text(
+          "Face Recognition${faceName != null ? " - $faceName" : ""}",
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: streamUrl == null

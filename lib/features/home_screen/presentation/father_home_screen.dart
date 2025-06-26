@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_home/core/helper/face_cam.dart';
 import 'package:smart_home/core/helper/fire_cam.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
@@ -61,7 +62,7 @@ class FatherHomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => FireCam()),
+                  MaterialPageRoute(builder: (_) => FaceCam()),
                 );
               },
               svgName: 'face',
