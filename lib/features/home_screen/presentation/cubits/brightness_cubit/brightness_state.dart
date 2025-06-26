@@ -1,24 +1,31 @@
 class BrightnessState {
   final double brightness;
   final bool isLoading;
+  final String? error;
 
-  const BrightnessState({required this.brightness, this.isLoading = false});
+  BrightnessState({
+    required this.brightness,
+    required this.isLoading,
+    this.error,
+  });
 
-  BrightnessState copyWith({double? brightness, bool? isLoading}) {
+  factory BrightnessState.initial() {
     return BrightnessState(
-      brightness: brightness ?? this.brightness,
-      isLoading: isLoading ?? this.isLoading,
+      brightness: 0.0,
+      isLoading: true,
+      error: null,
     );
   }
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is BrightnessState &&
-            other.brightness == brightness &&
-            other.isLoading == isLoading);
+  BrightnessState copyWith({
+    double? brightness,
+    bool? isLoading,
+    String? error,
+  }) {
+    return BrightnessState(
+      brightness: brightness ?? this.brightness,
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+    );
   }
-
-  @override
-  int get hashCode => brightness.hashCode ^ isLoading.hashCode;
 }
