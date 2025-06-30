@@ -6,8 +6,13 @@ import 'package:logger/logger.dart';
 import 'package:smart_home/core/helper/global_sensors_observer.dart';
 import 'package:smart_home/core/routing/router.dart';
 import 'package:smart_home/core/theming/colors.dart';
+import 'package:smart_home/features/home_screen/data/repos/mode_repo.dart';
 import 'package:smart_home/features/home_screen/data/repos/sensors_repo.dart';
+import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
+
+import 'features/home_screen/data/repos/leds_repo.dart';
+import 'features/home_screen/presentation/cubits/mode_cubit/mode_cubit.dart';
 
 class SmartHomeApp extends StatefulWidget {
   const SmartHomeApp({super.key, required this.appRouter});
@@ -22,8 +27,15 @@ class _SmartHomeAppState extends State<SmartHomeApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SensorsCubit(SensorsRepo())..startMointring(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SensorsCubit(SensorsRepo())..startMointring(),
+        ),
+        BlocProvider(create: (context) => ModeCubit(ModeRepo())),
+        // Add this provider for LedsCubit
+        BlocProvider(create: (context) => LedsCubit(LedsRepo())),
+      ],
       child: GlobalSensorsObserver(
         child: ScreenUtilInit(
           minTextAdapt: true,

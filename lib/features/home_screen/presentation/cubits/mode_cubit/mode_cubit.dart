@@ -4,7 +4,7 @@ import 'package:smart_home/features/home_screen/data/repos/mode_repo.dart';
 import 'mode_state.dart';
 
 class ModeCubit extends Cubit<ModeState> {
-  final ModeRepository repo;
+  final ModeRepo repo;
   StreamSubscription<bool?>? _rSub;
 
   ModeCubit(this.repo) : super(const ModeState()) {

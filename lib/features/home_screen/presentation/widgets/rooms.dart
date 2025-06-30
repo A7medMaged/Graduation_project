@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/home_control.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
 
 class Rooms extends StatelessWidget {
   const Rooms({super.key});
@@ -21,17 +23,9 @@ class Rooms extends StatelessWidget {
               svgName: 'room',
             ),
             const SizedBox(height: 16),
-            HomeControl(
-              roomName: 'Room 1',
-              onTap: () => GoRouter.of(context).push(AppRoutes.roomOne),
-              svgName: 'room',
-            ),
+            RoomOne(),
             const SizedBox(height: 16),
-            HomeControl(
-              roomName: 'Room 2',
-              onTap: () => GoRouter.of(context).push(AppRoutes.roomTwo),
-              svgName: 'room',
-            ),
+            RoomTwo(),
           ],
         ),
       ),

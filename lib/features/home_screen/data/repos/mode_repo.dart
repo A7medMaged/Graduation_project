@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class ModeRepository {
+class ModeRepo {
   final _database = FirebaseDatabase.instance.ref();
 
   Stream<bool?> streamR() {

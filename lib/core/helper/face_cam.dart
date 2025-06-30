@@ -81,7 +81,7 @@ class _FaceCamState extends State<FaceCam> {
 
   @override
   void dispose() {
-    nameSubscription?.cancel(); // إلغاء الاشتراك عند الخروج من الصفحة
+    nameSubscription?.cancel();
     super.dispose();
   }
 

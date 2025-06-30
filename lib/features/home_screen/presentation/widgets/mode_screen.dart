@@ -17,7 +17,7 @@ class ToggleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ModeCubit(ModeRepository())),
+        BlocProvider(create: (context) => ModeCubit(ModeRepo())),
         BlocProvider(create: (context) => BrightnessCubit(BrightnessRepo())),
       ],
       child: const _ToggleScreenContent(),
