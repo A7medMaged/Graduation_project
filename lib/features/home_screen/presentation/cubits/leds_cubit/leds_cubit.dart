@@ -20,7 +20,7 @@ class LedsCubit extends Cubit<LedsState> {
           state.copyWith(
             room1Led: rooms['room_one'] == 1,
             room2Led: rooms['room_two'] == 1,
-            tempSensor: rooms['temp_sensor'].toString(),
+            tempSensor: int.tryParse(rooms['temp_sensor'].toString()) ?? 0,
             humidity: int.tryParse(rooms['humidity'].toString()) ?? 0,
             isLoading: false,
           ),

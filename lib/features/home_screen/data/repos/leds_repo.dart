@@ -9,7 +9,7 @@ class LedsRepo {
       return {
         'room_one': data?['room_one'] ?? 0,
         'room_two': data?['room_two'] ?? 0,
-        'temp_sensor': data?['temp_sensor'] ?? '0',
+        'temp_sensor': data?['temp_sensor'] ?? 0,
         'humidity': data?['humidity'] ?? 0,
       };
     });

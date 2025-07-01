@@ -1,7 +1,7 @@
 class LedsState {
   final bool room1Led;
   final bool room2Led;
-  final String tempSensor;
+  final int tempSensor;
   final int humidity;
   final bool isLoading;
 
@@ -16,7 +16,7 @@ class LedsState {
   factory LedsState.initial() => LedsState(
     room1Led: false,
     room2Led: false,
-    tempSensor: '0',
+    tempSensor: 0,
     humidity: 0,
     isLoading: true,
   );
@@ -24,7 +24,7 @@ class LedsState {
   LedsState copyWith({
     bool? room1Led,
     bool? room2Led,
-    String? tempSensor,
+    int? tempSensor,
     int? humidity,
     bool? isLoading,
   }) {

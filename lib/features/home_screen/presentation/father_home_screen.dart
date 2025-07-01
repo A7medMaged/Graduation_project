@@ -9,6 +9,8 @@ import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_state.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/home_control.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/humidity_progress.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/temp_bar.dart';
 
 class FatherHomeScreen extends StatefulWidget {
   const FatherHomeScreen({super.key});
@@ -18,11 +20,9 @@ class FatherHomeScreen extends StatefulWidget {
 }
 
 class _FatherHomeScreenState extends State<FatherHomeScreen> {
-  Color _getTempColor(String temp) {
-    final int? t = int.tryParse(temp);
-    if (t == null) return Colors.grey;
-    if (t <= 18) return Colors.blue;
-    if (t <= 26) return Colors.orange;
+  Color _getTempColor(int temp) {
+    if (temp < 25) return Colors.blue;
+    if (temp < 30) return Colors.orange;
     return Colors.red;
   }
 
@@ -60,114 +60,45 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
                 if (state.isLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(24),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
                   ),
-                  elevation: 6,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 28,
-                      horizontal: 20,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // Temperature Section
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: _getTempColor(
-                                  state.tempSensor,
-                                ).withOpacity(0.15),
-                                shape: BoxShape.circle,
-                              ),
-                              padding: const EdgeInsets.all(12),
-                              child: Icon(
-                                Icons.thermostat_rounded,
-                                color: _getTempColor(state.tempSensor),
-                                size: 38,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              '${state.tempSensor}°C',
-                              style: const TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'Temperature',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey[700],
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        // Divider
-                        Container(
-                          height: 60,
-                          width: 1.5,
-                          color: Colors.grey[300],
-                        ),
-                        // Humidity Section
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: _getHumidityColor(
-                                  state.humidity,
-                                ).withOpacity(0.15),
-                                shape: BoxShape.circle,
-                              ),
-                              padding: const EdgeInsets.all(12),
-                              child: Icon(
-                                Icons.water_drop_rounded,
-                                color: _getHumidityColor(state.humidity),
-                                size: 38,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              '${state.humidity}%',
-                              style: const TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'Humidity',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TemperatureBar(
+                        temperature: state.tempSensor,
+                        color: _getTempColor(state.tempSensor),
+                      ),
+                      Container(
+                        height: 70,
+                        width: 1.2,
+                        color: Colors.grey[300],
+                      ),
+                      HumidityProgress(
+                        humidity: state.humidity,
+                        color: _getHumidityColor(state.humidity),
+                      ),
+                    ],
                   ),
                 );
               },
-            ),
-            HomeControl(
-              roomName: 'Kitchen',
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.kitchen);
-              },
-              svgName: 'kitchen',
             ),
             HomeControl(
               roomName: 'Rooms',
@@ -175,6 +106,13 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
                 GoRouter.of(context).push(AppRoutes.rooms);
               },
               svgName: 'room',
+            ),
+            HomeControl(
+              roomName: 'Kitchen',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.kitchen);
+              },
+              svgName: 'kitchen',
             ),
             HomeControl(
               roomName: 'Fire Camera',
