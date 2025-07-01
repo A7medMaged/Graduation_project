@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_state.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/device_control.dart';
@@ -17,7 +18,17 @@ class _RoomOneState extends State<RoomOne> {
     return BlocBuilder<LedsCubit, LedsState>(
       builder: (context, state) {
         if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Skeletonizer(
+            child: DeviceControl(
+              textOn: 'On',
+              textOff: 'Off',
+              isOn: false,
+              iconOn: Icons.lightbulb,
+              iconOff: Icons.lightbulb_outline,
+              deviceName: 'Room 1',
+              onPressed: () {},
+            ),
+          );
         }
         return DeviceControl(
           textOn: 'On',

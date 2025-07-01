@@ -22,9 +22,9 @@ class Details extends StatelessWidget {
           title: Text(title, style: TextStyles.font16WhiteMedium),
           subtitle: Text(subtitle, style: TextStyles.font14GrayRegular),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 3),
         const Divider(thickness: 1, indent: 16, endIndent: 16),
-        const SizedBox(height: 5),
+        const SizedBox(height: 3),
       ],
     );
   }

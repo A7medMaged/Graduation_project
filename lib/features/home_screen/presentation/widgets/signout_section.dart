@@ -33,8 +33,6 @@ class SignoutSection extends StatelessWidget {
                   SizedBox(
                     width: 80.w,
                     child: AppTextButton(
-                      buttonText: 'Yes',
-                      textStyle: const TextStyle(color: white),
                       backgroundColor: red,
                       onPressed: () async {
                         final FirebaseAuth auth = FirebaseAuth.instance;
@@ -54,6 +52,7 @@ class SignoutSection extends StatelessWidget {
                           context,
                         ).pushReplacement(AppRoutes.loginScreen);
                       },
+                      child: Text("Yes", style: TextStyles.font16WhiteSemiBold),
                     ),
                   ),
                 ],

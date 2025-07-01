@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_state.dart';
 import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
-import 'package:smart_home/features/home_screen/presentation/widgets/shimmer_loading.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/loading.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/signout_section.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_avatar.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_details.dart';
@@ -34,7 +35,7 @@ class UserProfileScreen extends StatelessWidget {
           child: BlocBuilder<UserCubit, UserState>(
             builder: (context, state) {
               if (state is UserInitial || state is UserLoading) {
-                return const Center(child: Loading());
+                return const Skeletonizer(child: Loading());
               } else if (state is UserError) {
                 return Center(child: Text(state.message));
               } else if (state is UserLoaded) {
@@ -43,12 +44,12 @@ class UserProfileScreen extends StatelessWidget {
                   'MMMM dd, yyyy - hh:mm a',
                 ).format(user.registerTime);
                 return Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Avatar(),
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 12.h),
                       Details(
                         title: "Name",
                         subtitle: user.name,

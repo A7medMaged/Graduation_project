@@ -261,7 +261,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 style: ToastificationStyle.flat,
                                 autoCloseDuration: const Duration(seconds: 5),
                               );
-                              GoRouter.of(context).go(AppRoutes.loginScreen);
+                              GoRouter.of(
+                                context,
+                              ).pushReplacement(AppRoutes.loginScreen);
                             } else if (state is RegisterFailure) {
                               toastification.show(
                                 context: context,
@@ -282,8 +284,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             }
                             return AppTextButton(
-                              buttonText: "Sign Up",
-                              textStyle: TextStyles.font16WhiteSemiBold,
+                              child: (state is RegisterLoading)
+                                  ? const SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Register',
+                                      style: TextStyles.font21WhiteMedium,
+                                    ),
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   context.read<RegisterCubit>().register(

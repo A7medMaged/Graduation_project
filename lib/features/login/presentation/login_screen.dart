@@ -99,9 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
-                          if (value == null ||
-                              value.isEmpty ||
-                              !AppRegex.isPasswordValid(value)) {
+                          if (value == null || value.isEmpty) {
                             return 'Please enter a valid password';
                           }
                         },
@@ -159,14 +157,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         builder: (context, state) {
-                          if (state is LoginLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
+                          // if (state is LoginLoading) {
+                          //   return const Center(
+                          //     child: CircularProgressIndicator(),
+                          //   );
+                          // }
                           return AppTextButton(
-                            buttonText: "Sign In",
-                            textStyle: TextStyles.font16WhiteSemiBold,
+                            child: (state is LoginLoading)
+                                ? const SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : Text(
+                                    "Login",
+                                    style: TextStyles.font21WhiteMedium,
+                                  ),
+
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
                                 setState(() {

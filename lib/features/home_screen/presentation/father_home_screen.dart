@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:smart_home/core/helper/face_cam.dart';
 import 'package:smart_home/core/helper/fire_cam.dart';
 import 'package:smart_home/core/routing/routes.dart';
@@ -36,7 +37,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Welcome Back'),
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -58,9 +59,49 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
             BlocBuilder<LedsCubit, LedsState>(
               builder: (context, state) {
                 if (state.isLoading) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: Skeletonizer(
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              // ignore: deprecated_member_use
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 20,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TemperatureBar(
+                              temperature: 25,
+                              color: _getTempColor(state.tempSensor),
+                            ),
+                            Container(
+                              height: 70,
+                              width: 1.2,
+                              color: Colors.grey[300],
+                            ),
+                            HumidityProgress(
+                              humidity: 45,
+                              color: _getHumidityColor(state.humidity),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
                 }
-
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
