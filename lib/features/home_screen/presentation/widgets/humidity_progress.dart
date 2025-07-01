@@ -26,6 +26,7 @@ class HumidityProgress extends StatelessWidget {
               child: CircularProgressIndicator(
                 value: value,
                 strokeWidth: 6,
+                // ignore: deprecated_member_use
                 backgroundColor: color.withOpacity(0.2),
                 valueColor: AlwaysStoppedAnimation<Color>(color),
               ),

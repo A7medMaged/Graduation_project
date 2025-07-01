@@ -7,6 +7,8 @@ class UserModel {
   final String name;
   final String phone;
   final UserRole role;
+  final int buildingNo;
+  final int apartmentNo;
   final DateTime registerTime;
 
   UserModel({
@@ -15,6 +17,8 @@ class UserModel {
     required this.name,
     required this.phone,
     required this.role,
+    required this.buildingNo,
+    required this.apartmentNo,
     required this.registerTime,
   });
 
@@ -25,6 +29,8 @@ class UserModel {
       name: map['name'] ?? '',
       phone: map['phone'] ?? '',
       role: getRoleFromString(map['role']),
+      buildingNo: map['buildingNo'] ?? 0,
+      apartmentNo: map['apartmentNo'] ?? 0,
       registerTime: (map['registerTime'] as Timestamp).toDate(),
     );
   }
@@ -36,6 +42,8 @@ class UserModel {
       'name': name,
       'phone': phone,
       'role': roleToString(role),
+      'buildingNo': buildingNo,
+      'apartmentNo': apartmentNo,
       'registerTime': registerTime,
     };
   }

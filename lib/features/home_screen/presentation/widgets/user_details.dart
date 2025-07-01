@@ -19,7 +19,7 @@ class Details extends StatelessWidget {
       children: [
         ListTile(
           leading: Icon(icon, size: 32),
-          title: Text(title, style: TextStyles.font21WhiteMedium),
+          title: Text(title, style: TextStyles.font16WhiteMedium),
           subtitle: Text(subtitle, style: TextStyles.font14GrayRegular),
         ),
         const SizedBox(height: 5),

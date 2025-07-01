@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_state.dart';
 import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
@@ -46,13 +47,49 @@ class UserProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Avatar(),
+                      const Avatar(),
                       SizedBox(height: 20.h),
                       Details(
                         title: "Name",
                         subtitle: user.name,
                         icon: Icons.person,
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              leading: const Icon(Icons.home, size: 32),
+                              title: Text(
+                                "Building No.",
+                                style: TextStyles.font16WhiteMedium,
+                                textAlign: TextAlign.start,
+                              ),
+                              subtitle: Text(
+                                user.buildingNo.toString(),
+                                style: TextStyles.font14GrayRegular,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListTile(
+                              leading: const Icon(Icons.apartment, size: 32),
+                              title: Text(
+                                "Apartment No.",
+                                style: TextStyles.font16WhiteMedium,
+                                textAlign: TextAlign.start,
+                              ),
+                              subtitle: Text(
+                                user.apartmentNo.toString(),
+                                style: TextStyles.font14GrayRegular,
+                                textAlign: TextAlign.start,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Divider(thickness: 1, indent: 16, endIndent: 16),
                       Details(
                         title: "E-mail",
                         subtitle: user.email,
@@ -73,7 +110,7 @@ class UserProfileScreen extends StatelessWidget {
                         subtitle: formattedDate,
                         icon: Icons.access_time,
                       ),
-                      SignoutSection(),
+                      const SignoutSection(),
                     ],
                   ),
                 );

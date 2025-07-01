@@ -78,14 +78,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _selectedRole = value!;
                     },
                   ),
-                  SizedBox(height: 18),
+                  const SizedBox(height: 18),
                   Form(
                     key: formKey,
                     autovalidateMode: autovalidateMode,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           children: [
                             Expanded(
@@ -96,7 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     'Building No.',
                                     style: TextStyles.font16BlueSemiBold,
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   AppTextFormField(
                                     controller: buildingNoController,
                                     hintText: 'Building No.',
@@ -113,7 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     'Apartment No.',
                                     style: TextStyles.font16BlueSemiBold,
                                   ),
-                                  SizedBox(height: 8),
+                                  const SizedBox(height: 8),
                                   AppTextFormField(
                                     controller: apartmentNoController,
                                     hintText: 'Apartment No.',
@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         Text('Name', style: TextStyles.font24BlueBold),
                         AppTextFormField(
                           controller: nameController,
@@ -154,9 +154,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         Text('Phone Number', style: TextStyles.font24BlueBold),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         AppTextFormField(
                           controller: phoneController,
                           hintText: 'Enter your phone number',
@@ -170,9 +170,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         Text('E-mail', style: TextStyles.font24BlueBold),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         AppTextFormField(
                           controller: emailController,
                           hintText: 'Enter your e-mail',
@@ -186,9 +186,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                         ),
-                        SizedBox(height: 18),
+                        const SizedBox(height: 18),
                         Text('Password', style: TextStyles.font24BlueBold),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         AppTextFormField(
                           controller: passwordController,
                           hintText: 'Enter your password',

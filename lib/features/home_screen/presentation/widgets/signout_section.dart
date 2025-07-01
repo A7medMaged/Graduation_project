@@ -21,20 +21,20 @@ class SignoutSection extends StatelessWidget {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text("Sign Out"),
-                content: Text("Are you sure you want to sign out?"),
+                title: const Text("Sign Out"),
+                content: const Text("Are you sure you want to sign out?"),
                 actions: [
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("No", style: const TextStyle(color: white)),
+                    child: const Text("No", style: TextStyle(color: white)),
                   ),
                   SizedBox(
                     width: 80.w,
                     child: AppTextButton(
                       buttonText: 'Yes',
-                      textStyle: TextStyle(color: white),
+                      textStyle: const TextStyle(color: white),
                       backgroundColor: red,
                       onPressed: () async {
                         final FirebaseAuth auth = FirebaseAuth.instance;
@@ -50,6 +50,7 @@ class SignoutSection extends StatelessWidget {
                             });
                         // ignore: use_build_context_synchronously
                         GoRouter.of(
+                          // ignore: use_build_context_synchronously
                           context,
                         ).pushReplacement(AppRoutes.loginScreen);
                       },
@@ -61,7 +62,7 @@ class SignoutSection extends StatelessWidget {
           );
         },
         title: Text("Sign Out", style: TextStyles.font21WhiteMedium),
-        trailing: Icon(Icons.logout, color: red),
+        trailing: const Icon(Icons.logout, color: red),
       ),
     );
   }

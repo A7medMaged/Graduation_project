@@ -69,6 +69,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
+                        // ignore: deprecated_member_use
                         color: Colors.grey.withOpacity(0.2),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
@@ -119,7 +120,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => FireCam()),
+                  MaterialPageRoute(builder: (_) => const FireCam()),
                 );
               },
               svgName: 'flame',
@@ -129,7 +130,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => FaceCam()),
+                  MaterialPageRoute(builder: (_) => const FaceCam()),
                 );
               },
               svgName: 'face',

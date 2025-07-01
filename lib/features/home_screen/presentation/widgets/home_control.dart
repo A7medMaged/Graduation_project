@@ -31,7 +31,7 @@ class HomeControl extends StatelessWidget {
         'Control your devices',
         style: TextStyles.font13GrayRegular,
       ),
-      trailing: Icon(Icons.arrow_forward_ios, color: black),
+      trailing: const Icon(Icons.arrow_forward_ios, color: black),
     );
   }
 }

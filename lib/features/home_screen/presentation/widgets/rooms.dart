@@ -11,7 +11,10 @@ class Rooms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Rooms'), backgroundColor: Colors.transparent),
+      appBar: AppBar(
+        title: const Text('Rooms'),
+        backgroundColor: Colors.transparent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -28,7 +31,7 @@ class Rooms extends StatelessWidget {
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
                 childAspectRatio: 1.1,
-                children: [RoomOne(), RoomTwo()],
+                children: const [RoomOne(), RoomTwo()],
               ),
             ),
           ],
