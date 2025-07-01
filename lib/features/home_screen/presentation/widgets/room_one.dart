@@ -19,21 +19,16 @@ class _RoomOneState extends State<RoomOne> {
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            DeviceControl(
-              textOn: 'On',
-              textOff: 'Off',
-              isOn: state.room1Led,
-              iconOn: Icons.lightbulb,
-              iconOff: Icons.lightbulb_outline,
-              deviceName: 'Led',
-              onPressed: () {
-                context.read<LedsCubit>().toggleRoom1Led();
-              },
-            ),
-          ],
+        return DeviceControl(
+          textOn: 'On',
+          textOff: 'Off',
+          isOn: state.room1Led,
+          iconOn: Icons.lightbulb,
+          iconOff: Icons.lightbulb_outline,
+          deviceName: 'Room 1',
+          onPressed: () {
+            context.read<LedsCubit>().toggleRoom1Led();
+          },
         );
       },
     );

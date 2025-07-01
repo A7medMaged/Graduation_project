@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_home/core/theming/colors.dart';
 
 class DeviceControl extends StatelessWidget {
   final bool isOn;
@@ -23,51 +22,85 @@ class DeviceControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      child: Card(
-        elevation: 5,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        surfaceTintColor: isOn ? Colors.green : Colors.white,
-        shadowColor: isOn ? Colors.green : Colors.white,
-        child: Row(
+    return AnimatedContainer(
+      height: 80,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      decoration: BoxDecoration(
+        color: isOn ? Colors.green[50] : Colors.grey[100],
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: isOn
+                ? Colors.green.withOpacity(0.2)
+                : Colors.grey.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 12,
           children: [
-            Icon(
-              isOn ? iconOn : iconOff,
-              color: isOn ? Colors.black : Colors.grey[600],
-              size: 36,
-            ),
-            Text(
-              deviceName,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-                color: isOn ? Colors.black : Colors.grey[600],
-              ),
-            ),
-            SizedBox(width: 60),
-            ElevatedButton(
-              onPressed: onPressed,
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  isOn ? Colors.green : Colors.red,
-                ),
-                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  decoration: BoxDecoration(
+                    color: isOn ? Colors.green : Colors.grey[400],
                     borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      if (isOn)
+                        BoxShadow(
+                          color: Colors.green.withOpacity(0.3),
+                          blurRadius: 10,
+                          offset: const Offset(0, 6),
+                        ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.all(14),
+                  child: Icon(
+                    isOn ? iconOn : iconOff,
+                    color: Colors.white,
+                    size: 30,
                   ),
                 ),
-              ),
-              child: Text(
-                isOn ? textOn : textOff,
-                style: TextStyle(
-                  color: white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      deviceName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: isOn ? Colors.green[900] : Colors.grey[800],
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      isOn ? textOn : textOff,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: isOn ? Colors.green : Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Transform.scale(
+              scale: 1.2,
+              child: Switch.adaptive(
+                value: isOn,
+                onChanged: (_) => onPressed?.call(),
+                activeColor: Colors.green,
+                inactiveThumbColor: Colors.grey[400],
+                inactiveTrackColor: Colors.grey[300],
               ),
             ),
           ],

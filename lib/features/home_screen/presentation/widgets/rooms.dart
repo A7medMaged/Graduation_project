@@ -14,8 +14,7 @@ class Rooms extends StatelessWidget {
       appBar: AppBar(title: Text('Rooms'), backgroundColor: Colors.transparent),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          shrinkWrap: true,
+        child: Column(
           children: [
             HomeControl(
               roomName: 'Room Modes',
@@ -23,9 +22,15 @@ class Rooms extends StatelessWidget {
               svgName: 'room',
             ),
             const SizedBox(height: 16),
-            RoomOne(),
-            const SizedBox(height: 16),
-            RoomTwo(),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1.1,
+                children: [RoomOne(), RoomTwo()],
+              ),
+            ),
           ],
         ),
       ),
