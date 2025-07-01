@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 
@@ -14,6 +16,7 @@ class AppTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final Color? backgroundColor;
+  final TextInputType type = TextInputType.text;
   final TextEditingController? controller;
   final Function(String?) validator;
   const AppTextFormField({
@@ -29,13 +32,14 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.backgroundColor,
     this.controller,
-    required this.validator,
+    required this.validator, required TextInputType keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      keyboardType: type,
       decoration: InputDecoration(
         suffixIconColor: WidgetStateColor.resolveWith(
           (states) =>

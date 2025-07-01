@@ -14,10 +14,20 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String name,
     required String phone,
     required String role,
+    required int buildingNo,
+    required int apartmentNo,
   }) async {
     emit(RegisterLoading());
     try {
-      await _registerRepo.register(email, password, name, phone, role);
+      await _registerRepo.register(
+        email,
+        password,
+        name,
+        phone,
+        role,
+        buildingNo,
+        apartmentNo,
+      );
       emit(RegisterSuccess());
     } catch (e) {
       emit(RegisterFailure(e.toString()));

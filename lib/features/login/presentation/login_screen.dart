@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           FontAwesomeIcons.envelope,
                           color: white,
                         ),
+                        keyboardType: TextInputType.emailAddress,
                         validator: (value) {
                           if (value == null ||
                               value.isEmpty ||
@@ -96,8 +97,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           FontAwesomeIcons.key,
                           color: white,
                         ),
+                        keyboardType: TextInputType.visiblePassword,
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              !AppRegex.isPasswordValid(value)) {
                             return 'Please enter a valid password';
                           }
                         },
@@ -144,8 +148,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               context,
                             ).pushReplacement(AppRoutes.homeScreen);
                           } else if (state is LoginFailure) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.error)),
+                            toastification.show(
+                              context: context,
+                              title: const Text('Login Failed'),
+                              description: Text(state.error),
+                              type: ToastificationType.error,
+                              style: ToastificationStyle.flat,
+                              autoCloseDuration: const Duration(seconds: 5),
                             );
                           }
                         },
@@ -192,6 +201,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                       errorMessage =
                                           'An unknown error occurred.';
                                   }
+                                  toastification.show(
+                                    context: context,
+                                    title: const Text('Login Failed'),
+                                    description: Text(errorMessage),
+                                    type: ToastificationType.error,
+                                    style: ToastificationStyle.flat,
+                                    autoCloseDuration: const Duration(
+                                      seconds: 5,
+                                    ),
+                                  );
                                 } catch (e) {
                                   logger.e(e);
                                 }

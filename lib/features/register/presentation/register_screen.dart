@@ -24,12 +24,16 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   var logger = Logger(printer: PrettyPrinter());
-  bool isObscureText = true;
+  bool isObscureText1 = true;
+  bool isObscureText2 = true;
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+  final buildingNoController = TextEditingController();
+  final apartmentNoController = TextEditingController();
   String _selectedRole = 'father';
 
   @override
@@ -81,12 +85,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Name', style: TextStyles.font24BlueBold),
                         SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Building No.',
+                                    style: TextStyles.font16BlueSemiBold,
+                                  ),
+                                  SizedBox(height: 8),
+                                  AppTextFormField(
+                                    controller: buildingNoController,
+                                    hintText: 'Building No.',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.building,
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Enter building no';
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Apartment No.',
+                                    style: TextStyles.font16BlueSemiBold,
+                                  ),
+                                  SizedBox(height: 8),
+                                  AppTextFormField(
+                                    controller: apartmentNoController,
+                                    hintText: 'Apartment No.',
+                                    prefixIcon: const Icon(
+                                      FontAwesomeIcons.doorOpen,
+                                    ),
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Enter apartment no';
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 18),
+                        Text('Name', style: TextStyles.font24BlueBold),
                         AppTextFormField(
                           controller: nameController,
                           hintText: 'Enter your name',
                           prefixIcon: const Icon(FontAwesomeIcons.user),
+                          keyboardType: TextInputType.name,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your name';
@@ -100,8 +161,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: phoneController,
                           hintText: 'Enter your phone number',
                           prefixIcon: const Icon(FontAwesomeIcons.phone),
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !AppRegex.isPhoneNumberValid(value)) {
                               return 'Please enter your phone number';
                             }
                           },
@@ -113,6 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: emailController,
                           hintText: 'Enter your e-mail',
                           prefixIcon: const Icon(FontAwesomeIcons.envelope),
+                          keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -127,23 +192,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         AppTextFormField(
                           controller: passwordController,
                           hintText: 'Enter your password',
-                          isObscureText: isObscureText,
+                          isObscureText: isObscureText1,
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {
-                                isObscureText = !isObscureText;
+                                isObscureText1 = !isObscureText1;
                               });
                             },
                             child: Icon(
-                              isObscureText
+                              isObscureText1
                                   ? FontAwesomeIcons.eyeSlash
                                   : FontAwesomeIcons.eye,
                             ),
                           ),
                           prefixIcon: const Icon(FontAwesomeIcons.key),
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                !AppRegex.isPasswordValid(value)) {
+                              return 'Please enter a valid password';
+                            }
+                          },
+                        ),
+                        SizedBox(height: 18.h),
+                        Text(
+                          'Confirm Password',
+                          style: TextStyles.font24BlueBold,
+                        ),
+                        SizedBox(height: 8.h),
+                        AppTextFormField(
+                          controller: confirmPasswordController,
+                          hintText: 'Re-enter your password',
+                          isObscureText: isObscureText2,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isObscureText2 = !isObscureText2;
+                              });
+                            },
+                            child: Icon(
+                              isObscureText2
+                                  ? FontAwesomeIcons.eyeSlash
+                                  : FontAwesomeIcons.eye,
+                            ),
+                          ),
+                          prefixIcon: const Icon(FontAwesomeIcons.key),
+                          keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a valid password';
+                              return 'Please re-enter your password';
+                            } else if (value != passwordController.text) {
+                              return 'Passwords do not match';
                             }
                           },
                         ),
@@ -151,15 +251,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         BlocConsumer<RegisterCubit, RegisterState>(
                           listener: (context, state) {
                             if (state is RegisterSuccess) {
+                              toastification.show(
+                                context: context,
+                                title: const Text('Registration Successful'),
+                                description: const Text(
+                                  'Your account has been created successfully.\n Go to your email to verify your account.',
+                                ),
+                                type: ToastificationType.success,
+                                style: ToastificationStyle.flat,
+                                autoCloseDuration: const Duration(seconds: 5),
+                              );
                               GoRouter.of(context).go(AppRoutes.loginScreen);
                             } else if (state is RegisterFailure) {
                               toastification.show(
                                 context: context,
                                 title: Text(state.error),
                                 description: const Text(
-                                  'Account created successfully!',
+                                  'Error occurred while creating account. Please try again.',
                                 ),
-                                type: ToastificationType.success,
+                                type: ToastificationType.error,
                                 style: ToastificationStyle.flat,
                                 autoCloseDuration: const Duration(seconds: 5),
                               );
@@ -182,18 +292,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     name: nameController.text.trim(),
                                     phone: phoneController.text.trim(),
                                     role: _selectedRole,
+                                    buildingNo:
+                                        int.tryParse(
+                                          buildingNoController.text.trim(),
+                                        ) ??
+                                        0,
+                                    apartmentNo:
+                                        int.tryParse(
+                                          apartmentNoController.text.trim(),
+                                        ) ??
+                                        0,
                                   );
-                                  toastification.show(
-                                    context: context,
-                                    title: const Text('Success!'),
-                                    description: const Text(
-                                      'Account created successfully!',
-                                    ),
-                                    type: ToastificationType.success,
-                                    style: ToastificationStyle.flat,
-                                    autoCloseDuration: const Duration(
-                                      seconds: 5,
-                                    ),
+                                  logger.i(
+                                    'Registering user with email: ${emailController.text.trim()}',
                                   );
                                 }
                                 setState(() {

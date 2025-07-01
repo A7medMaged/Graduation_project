@@ -10,6 +10,8 @@ class RegisterRepo {
     String name,
     String phone,
     String role,
+    int buildingNo,
+    int apartmentNo,
   ) async {
     try {
       UserCredential userCredential = await _auth
@@ -21,6 +23,8 @@ class RegisterRepo {
         'phone': phone,
         'role': role,
         'id': userCredential.user!.uid,
+        'buildingNo': buildingNo,
+        'apartmentNo': apartmentNo,
         'registerTime': DateTime.now(),
       });
 
