@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:smart_home/core/helper/global_sensors_observer.dart';
@@ -37,18 +36,14 @@ class _SmartHomeAppState extends State<SmartHomeApp> {
         BlocProvider(create: (context) => LedsCubit(LedsRepo())),
       ],
       child: GlobalSensorsObserver(
-        child: ScreenUtilInit(
-          minTextAdapt: true,
-          designSize: const Size(375, 812),
-          child: MaterialApp.router(
-            routerConfig: AppRouter.router,
-            title: 'Smart Home App',
-            theme: ThemeData.dark().copyWith(
-              scaffoldBackgroundColor: black,
-              textTheme: GoogleFonts.exo2TextTheme(ThemeData.dark().textTheme),
-            ),
-            debugShowCheckedModeBanner: false,
+        child: MaterialApp.router(
+          routerConfig: AppRouter.router,
+          title: 'Smart Home App',
+          theme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: black,
+            textTheme: GoogleFonts.exo2TextTheme(ThemeData.dark().textTheme),
           ),
+          debugShowCheckedModeBanner: false,
         ),
       ),
     );

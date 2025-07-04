@@ -12,7 +12,7 @@ class MotherHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Welcome Back'),
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -26,27 +26,35 @@ class MotherHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          spacing: 16,
-          children: [
-            HomeControl(
-              roomName: 'Kitchen',
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.kitchen);
-              },
-              svgName: 'kitchen',
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/living.jpg', fit: BoxFit.cover),
+          // ignore: deprecated_member_use
+          Container(color: secondary.withOpacity(0.4)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              spacing: 16,
+              children: [
+                HomeControl(
+                  roomName: 'Kitchen',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.kitchen);
+                  },
+                  svgName: 'kitchen',
+                ),
+                HomeControl(
+                  roomName: 'Rooms',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.rooms);
+                  },
+                  svgName: 'room',
+                ),
+              ],
             ),
-            HomeControl(
-              roomName: 'Rooms',
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.rooms);
-              },
-              svgName: 'room',
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

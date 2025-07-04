@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/core/theming/colors.dart';
 
 import '../../../../core/theming/text_style.dart';
 
@@ -18,8 +19,16 @@ class Details extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: Icon(icon, size: 32),
-          title: Text(title, style: TextStyles.font16WhiteMedium),
+          textColor: mainColor,
+          leading: Icon(icon, size: 32, color: mainColor),
+          title: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              color: mainColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           subtitle: Text(subtitle, style: TextStyles.font14GrayRegular),
         ),
         const SizedBox(height: 3),

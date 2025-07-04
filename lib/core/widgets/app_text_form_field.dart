@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 
@@ -32,7 +30,8 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.backgroundColor,
     this.controller,
-    required this.validator, required TextInputType keyboardType,
+    required this.validator,
+    required TextInputType keyboardType,
   });
 
   @override
@@ -43,22 +42,22 @@ class AppTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         suffixIconColor: WidgetStateColor.resolveWith(
           (states) =>
-              states.contains(WidgetState.focused) ? mainBlue : lightGray,
+              states.contains(WidgetState.focused) ? mainColor : lightGray,
         ),
         prefixIconColor: WidgetStateColor.resolveWith(
           (states) =>
-              states.contains(WidgetState.focused) ? mainBlue : lightGray,
+              states.contains(WidgetState.focused) ? mainColor : lightGray,
         ),
         isDense: true,
         contentPadding:
             contentPadding ??
-            EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         focusedBorder:
             focusedBorder ??
             OutlineInputBorder(
               borderSide: const BorderSide(
                 style: BorderStyle.solid,
-                color: mainBlue,
+                color: mainColor,
                 width: 1.3,
               ),
               borderRadius: BorderRadius.circular(16.0),

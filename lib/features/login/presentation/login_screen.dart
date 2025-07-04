@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/web.dart';
 import 'package:smart_home/core/helper/app_regex.dart';
@@ -43,13 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Image.asset(
                   'assets/images/smart-house.png',
-                  width: 100.w,
-                  height: 100.h,
+                  width: 100,
+                  height: 100,
                   color: white,
                 ),
-                SizedBox(height: 40.h),
+                const SizedBox(height: 40),
                 Text('Welcome Back', style: TextStyles.font24BlueBold),
-                SizedBox(height: 20.h),
+                const SizedBox(height: 20),
                 Form(
                   key: formKey,
                   autovalidateMode: autovalidateMode,
@@ -57,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('E-mail', style: TextStyles.font24BlueBold),
-                      SizedBox(height: 8.h),
+                      const SizedBox(height: 8),
                       AppTextFormField(
                         controller: _emailController,
                         hintText: 'Enter your e-mail',
@@ -74,9 +73,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                       ),
-                      SizedBox(height: 18.h),
+                      const SizedBox(height: 18),
                       Text('Password', style: TextStyles.font24BlueBold),
-                      SizedBox(height: 8.h),
+                      const SizedBox(height: 8),
                       AppTextFormField(
                         controller: _passwordController,
                         hintText: 'Enter your password',
@@ -104,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                       ),
-                      SizedBox(height: 18.h),
+                      const SizedBox(height: 18),
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: GestureDetector(
@@ -138,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.h),
+                      const SizedBox(height: 20),
                       BlocConsumer<LoginCubit, LoginState>(
                         listener: (context, state) {
                           if (state is LoginSuccess) {
@@ -172,9 +171,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       strokeWidth: 2,
                                     ),
                                   )
-                                : Text(
+                                : const Text(
                                     "Login",
-                                    style: TextStyles.font21WhiteMedium,
+                                    style: TextStyle(
+                                      color: mainColor,
+                                      fontSize: 21,
+                                    ),
                                   ),
 
                             onPressed: () async {
@@ -231,9 +233,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                       ),
-                      SizedBox(height: 16.h),
+                      const SizedBox(height: 16),
                       const TermsAndConditionsText(),
-                      SizedBox(height: 40.h),
+                      const SizedBox(height: 40),
                       const Center(child: DontHaveAccountText()),
                     ],
                   ),
@@ -245,10 +247,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  // Future<void> loginUser() async {
-  //   // ignore: unused_local_variable
-  //   UserCredential user =
-
-  // }
 }

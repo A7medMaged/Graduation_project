@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:smart_home/core/theming/colors.dart';
 
 class DeviceControl extends StatelessWidget {
   final bool isOn;
@@ -25,17 +26,14 @@ class DeviceControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: 80,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
       decoration: BoxDecoration(
-        color: isOn ? Colors.green[50] : Colors.grey[100],
+        color: secondary.withOpacity(0.85),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: isOn
-                ? Colors.green.withOpacity(0.2)
-                : Colors.grey.withOpacity(0.1),
+            color: isOn ? mainColor.withOpacity(0.5) : grey.withOpacity(0.5),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -52,12 +50,12 @@ class DeviceControl extends StatelessWidget {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   decoration: BoxDecoration(
-                    color: isOn ? Colors.green : Colors.grey[400],
+                    color: isOn ? mainColor : red,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       if (isOn)
                         BoxShadow(
-                          color: Colors.green.withOpacity(0.3),
+                          color: mainColor.withOpacity(0.5),
                           blurRadius: 10,
                           offset: const Offset(0, 6),
                         ),
@@ -78,7 +76,7 @@ class DeviceControl extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: isOn ? Colors.green[900] : Colors.grey[800],
+                        color: isOn ? mainColor : red,
                       ),
                     ),
                     const SizedBox(height: 6),
@@ -86,7 +84,7 @@ class DeviceControl extends StatelessWidget {
                       isOn ? textOn : textOff,
                       style: TextStyle(
                         fontSize: 15,
-                        color: isOn ? Colors.green : Colors.red,
+                        color: isOn ? mainColor : red,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -100,7 +98,8 @@ class DeviceControl extends StatelessWidget {
               child: Switch.adaptive(
                 value: isOn,
                 onChanged: (_) => onPressed?.call(),
-                activeColor: Colors.green,
+                activeColor: mainColor,
+                activeTrackColor: mainColor.withOpacity(0.3),
                 inactiveThumbColor: Colors.grey[400],
                 inactiveTrackColor: Colors.grey[300],
               ),

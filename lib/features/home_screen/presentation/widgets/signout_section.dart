@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/web.dart';
 import 'package:smart_home/core/routing/routes.dart';
@@ -31,7 +30,7 @@ class SignoutSection extends StatelessWidget {
                     child: const Text("No", style: TextStyle(color: white)),
                   ),
                   SizedBox(
-                    width: 80.w,
+                    width: 80,
                     child: AppTextButton(
                       backgroundColor: red,
                       onPressed: () async {
@@ -60,7 +59,14 @@ class SignoutSection extends StatelessWidget {
             },
           );
         },
-        title: Text("Sign Out", style: TextStyles.font21WhiteMedium),
+        title: const Text(
+          "Sign Out",
+          style: TextStyle(
+            color: red,
+            fontSize: 21,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
         trailing: const Icon(Icons.logout, color: red),
       ),
     );

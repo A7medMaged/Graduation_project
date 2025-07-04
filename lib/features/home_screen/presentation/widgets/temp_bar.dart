@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/core/theming/colors.dart';
 
 class TemperatureBar extends StatelessWidget {
   final int temperature;
@@ -41,22 +42,19 @@ class TemperatureBar extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(width: 8),
+            const SizedBox(width: 12),
             Text(
               '$temperature°C',
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: white,
               ),
             ),
           ],
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Temperature',
-          style: TextStyle(fontSize: 14, color: Colors.grey),
-        ),
+        const Text('Temperature', style: TextStyle(fontSize: 14, color: white)),
       ],
     );
   }

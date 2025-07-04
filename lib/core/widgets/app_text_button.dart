@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smart_home/core/theming/colors.dart';
 
 class AppTextButton extends StatelessWidget {
@@ -33,15 +32,15 @@ class AppTextButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius ?? 16.0),
           ),
         ),
-        backgroundColor: WidgetStatePropertyAll(backgroundColor ?? mainBlue),
+        backgroundColor: WidgetStatePropertyAll(backgroundColor ?? secondary),
         padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.symmetric(
-            horizontal: horizontalPadding?.w ?? 12.w,
-            vertical: verticalPadding?.h ?? 14.h,
+            horizontal: horizontalPadding ?? 12,
+            vertical: verticalPadding ?? 14,
           ),
         ),
         fixedSize: WidgetStateProperty.all(
-          Size(buttonWidth?.w ?? double.maxFinite, buttonHeight ?? 50.h),
+          Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 50),
         ),
       ),
       onPressed: onPressed,

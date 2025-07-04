@@ -11,4 +11,6 @@ class AppRoutes {
   static const fatherScreen = '/father';
   static const motherScreen = '/mother';
   static const childScreen = '/child';
+  static const fireCam = '/fireCam';
+  static const faceCam = '/faceCam';
 }

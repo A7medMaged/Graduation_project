@@ -76,7 +76,7 @@ class _FireCamState extends State<FireCam> {
                 if (loadingPercentage < 100)
                   LinearProgressIndicator(
                     value: loadingPercentage / 100,
-                    color: mainBlue,
+                    color: mainColor,
                   ),
               ],
             ),

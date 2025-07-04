@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:smart_home/core/theming/text_style.dart';
+import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/user_cubit/user_state.dart';
 import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
@@ -20,9 +19,12 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
+      backgroundColor: secondary.withOpacity(0.4),
       appBar: AppBar(
         title: const Text('User Profile'),
-        backgroundColor: Colors.transparent,
+        // ignore: deprecated_member_use
+        backgroundColor: secondary.withOpacity(0.4),
       ),
       body: SingleChildScrollView(
         child: MultiBlocProvider(
@@ -49,7 +51,7 @@ class UserProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Avatar(),
-                      SizedBox(height: 12.h),
+                      const SizedBox(height: 12),
                       Details(
                         title: "Name",
                         subtitle: user.name,
@@ -60,30 +62,46 @@ class UserProfileScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ListTile(
-                              leading: const Icon(Icons.home, size: 32),
-                              title: Text(
+                              textColor: mainColor,
+                              leading: const Icon(
+                                Icons.home,
+                                size: 32,
+                                color: mainColor,
+                              ),
+                              title: const Text(
                                 "Building No.",
-                                style: TextStyles.font16WhiteMedium,
                                 textAlign: TextAlign.start,
                               ),
                               subtitle: Text(
                                 user.buildingNo.toString(),
-                                style: TextStyles.font14GrayRegular,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: grey,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 textAlign: TextAlign.start,
                               ),
                             ),
                           ),
                           Expanded(
                             child: ListTile(
-                              leading: const Icon(Icons.apartment, size: 32),
-                              title: Text(
+                              textColor: mainColor,
+                              leading: const Icon(
+                                Icons.apartment,
+                                size: 32,
+                                color: mainColor,
+                              ),
+                              title: const Text(
                                 "Apartment No.",
-                                style: TextStyles.font16WhiteMedium,
                                 textAlign: TextAlign.start,
                               ),
                               subtitle: Text(
                                 user.apartmentNo.toString(),
-                                style: TextStyles.font14GrayRegular,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: grey,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 textAlign: TextAlign.start,
                               ),
                             ),

@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:smart_home/core/helper/face_cam.dart';
-import 'package:smart_home/core/helper/fire_cam.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
@@ -30,7 +28,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
   Color _getHumidityColor(int humidity) {
     if (humidity < 30) return Colors.blue;
     if (humidity < 60) return Colors.orange;
-    return Colors.red;
+    return red;
   }
 
   @override
@@ -38,6 +36,8 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Welcome Back'),
+        // ignore: deprecated_member_use
+        backgroundColor: secondary.withOpacity(0.85),
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -51,133 +51,136 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          spacing: 16,
-          children: [
-            BlocBuilder<LedsCubit, LedsState>(
-              builder: (context, state) {
-                if (state.isLoading) {
-                  return Center(
-                    child: Skeletonizer(
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(24),
-                          boxShadow: [
-                            BoxShadow(
-                              // ignore: deprecated_member_use
-                              color: Colors.grey.withOpacity(0.2),
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/living.jpg', fit: BoxFit.cover),
+          // ignore: deprecated_member_use
+          Container(color: secondary.withOpacity(0.4)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              spacing: 16,
+              children: [
+                BlocBuilder<LedsCubit, LedsState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return Center(
+                        child: Skeletonizer(
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            decoration: BoxDecoration(
+                              color: secondary,
+                              borderRadius: BorderRadius.circular(24),
+                              boxShadow: [
+                                BoxShadow(
+                                  // ignore: deprecated_member_use
+                                  color: grey.withOpacity(0.2),
+                                  blurRadius: 20,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
                             ),
-                          ],
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 24,
+                              horizontal: 20,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TemperatureBar(
+                                  temperature: 25,
+                                  color: _getTempColor(state.tempSensor),
+                                ),
+                                Container(
+                                  height: 70,
+                                  width: 1.2,
+                                  color: Colors.grey[300],
+                                ),
+                                HumidityProgress(
+                                  humidity: 45,
+                                  color: _getHumidityColor(state.humidity),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24,
-                          horizontal: 20,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TemperatureBar(
-                              temperature: 25,
-                              color: _getTempColor(state.tempSensor),
-                            ),
-                            Container(
-                              height: 70,
-                              width: 1.2,
-                              color: Colors.grey[300],
-                            ),
-                            HumidityProgress(
-                              humidity: 45,
-                              color: _getHumidityColor(state.humidity),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
+                      );
+                    }
+                    return AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      decoration: BoxDecoration(
                         // ignore: deprecated_member_use
-                        color: Colors.grey.withOpacity(0.2),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
+                        color: secondary.withOpacity(0.85),
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            // ignore: deprecated_member_use
+                            color: grey.withOpacity(0.2),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24,
-                    horizontal: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TemperatureBar(
-                        temperature: state.tempSensor,
-                        color: _getTempColor(state.tempSensor),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 24,
+                        horizontal: 20,
                       ),
-                      Container(
-                        height: 70,
-                        width: 1.2,
-                        color: Colors.grey[300],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TemperatureBar(
+                            temperature: state.tempSensor,
+                            color: _getTempColor(state.tempSensor),
+                          ),
+                          Container(
+                            height: 70,
+                            width: 1.2,
+                            color: Colors.grey[300],
+                          ),
+                          HumidityProgress(
+                            humidity: state.humidity,
+                            color: _getHumidityColor(state.humidity),
+                          ),
+                        ],
                       ),
-                      HumidityProgress(
-                        humidity: state.humidity,
-                        color: _getHumidityColor(state.humidity),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+                HomeControl(
+                  roomName: 'Rooms',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.rooms);
+                  },
+                  svgName: 'room',
+                ),
+                HomeControl(
+                  roomName: 'Kitchen',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.kitchen);
+                  },
+                  svgName: 'kitchen',
+                ),
+                HomeControl(
+                  roomName: 'Fire Camera',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.fireCam);
+                  },
+                  svgName: 'flame',
+                ),
+                HomeControl(
+                  roomName: 'Face Recognition',
+                  onTap: () {
+                    GoRouter.of(context).push(AppRoutes.faceCam);
+                  },
+                  svgName: 'face',
+                ),
+              ],
             ),
-            HomeControl(
-              roomName: 'Rooms',
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.rooms);
-              },
-              svgName: 'room',
-            ),
-            HomeControl(
-              roomName: 'Kitchen',
-              onTap: () {
-                GoRouter.of(context).push(AppRoutes.kitchen);
-              },
-              svgName: 'kitchen',
-            ),
-            HomeControl(
-              roomName: 'Fire Camera',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FireCam()),
-                );
-              },
-              svgName: 'flame',
-            ),
-            HomeControl(
-              roomName: 'Face Recognition',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FaceCam()),
-                );
-              },
-              svgName: 'face',
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

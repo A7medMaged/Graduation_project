@@ -80,7 +80,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset(AssetsData.logo, color: mainBlue, height: 200, width: 200),
+        Image.asset(AssetsData.logo, color: mainColor, height: 200, width: 200),
         SlidingText(slidingAnimation: slidingAnimation),
       ],
     );

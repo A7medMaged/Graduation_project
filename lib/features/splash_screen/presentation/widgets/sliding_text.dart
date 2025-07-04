@@ -22,7 +22,7 @@ class SlidingText extends StatelessWidget {
               fontFamily: GoogleFonts.creepsterTextTheme(
                 ThemeData.dark().textTheme,
               ).bodyLarge!.fontFamily,
-              color: mainBlue,
+              color: mainColor,
             ),
           ),
         );

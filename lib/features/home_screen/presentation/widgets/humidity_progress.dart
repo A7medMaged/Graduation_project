@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home/core/theming/colors.dart';
 
 class HumidityProgress extends StatelessWidget {
   final int humidity;
@@ -36,7 +37,7 @@ class HumidityProgress extends StatelessWidget {
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
-                color: Colors.black87,
+                color: white,
               ),
             ),
           ],
@@ -46,7 +47,7 @@ class HumidityProgress extends StatelessWidget {
           'Humidity',
           style: TextStyle(
             fontSize: 14,
-            color: Colors.grey,
+            color: white,
             fontWeight: FontWeight.w500,
           ),
         ),

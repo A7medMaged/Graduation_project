@@ -12,7 +12,7 @@ class ChildHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
+        title: const Text('Welcome Back'),
         actions: [
           IconButton(
             icon: SvgPicture.asset(
@@ -26,15 +26,22 @@ class ChildHomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: HomeControl(
-          roomName: 'Rooms',
-          onTap: () {
-            GoRouter.of(context).push(AppRoutes.rooms);
-          },
-          svgName: 'room',
-        ),
+      body: Stack(
+        children: [
+          Image.asset('assets/images/living.jpg', fit: BoxFit.cover),
+          // ignore: deprecated_member_use
+          Container(color: secondary.withOpacity(0.4)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: HomeControl(
+              roomName: 'Rooms',
+              onTap: () {
+                GoRouter.of(context).push(AppRoutes.rooms);
+              },
+              svgName: 'room',
+            ),
+          ),
+        ],
       ),
     );
   }

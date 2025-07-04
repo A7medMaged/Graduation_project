@@ -102,7 +102,7 @@ class _FaceCamState extends State<FaceCam> {
                 if (loadingPercentage < 100)
                   LinearProgressIndicator(
                     value: loadingPercentage / 100,
-                    color: mainBlue,
+                    color: mainColor,
                   ),
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/signout_section.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_avatar.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:smart_home/core/helper/face_cam.dart';
+import 'package:smart_home/core/helper/fire_cam.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/features/home_screen/data/repos/leds_repo.dart';
 import 'package:smart_home/features/home_screen/data/repos/sensors_repo.dart';
@@ -91,6 +93,15 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.mode,
         builder: (context, state) => const ToggleScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.fireCam,
+        builder: (context, state) => const FireCam(),
+      ),
+      GoRoute(
+        path: AppRoutes.faceCam,
+        builder: (context, state) =>
+            const FaceCam(), // Placeholder for face camera
       ),
     ],
   );
