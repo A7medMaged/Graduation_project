@@ -72,7 +72,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
                             curve: Curves.easeInOut,
                             decoration: BoxDecoration(
                               color: secondary,
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(12),
                               boxShadow: [
                                 BoxShadow(
                                   // ignore: deprecated_member_use
@@ -114,7 +114,7 @@ class _FatherHomeScreenState extends State<FatherHomeScreen> {
                       decoration: BoxDecoration(
                         // ignore: deprecated_member_use
                         color: secondary.withOpacity(0.85),
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
                             // ignore: deprecated_member_use

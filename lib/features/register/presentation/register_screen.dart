@@ -227,8 +227,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     hintText: 'Building No.',
                     prefixIcon: const Icon(FontAwesomeIcons.building),
                     keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                      signed: false,
+                      decimal: false,
                     ),
                     validator: (value) => (value == null || value.isEmpty)
                         ? 'Enter building no'
@@ -301,10 +300,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           hintText: 'Enter your e-mail',
           prefixIcon: const Icon(FontAwesomeIcons.envelope),
           keyboardType: TextInputType.emailAddress,
-          validator: (value) =>
-              (value == null || value.isEmpty || !AppRegex.isEmailValid(value))
-              ? 'Please enter a valid email'
-              : null,
+          validator: (value) {
+            if (value == null || value.isEmpty || !AppRegex.isEmailValid(value)) {
+              return 'Please enter a valid email';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 18),
         Text('Password', style: TextStyles.font24BlueBold),

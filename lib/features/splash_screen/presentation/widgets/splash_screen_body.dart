@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/web.dart';
 import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/assets.dart';
 import 'package:smart_home/core/routing/routes.dart';
@@ -36,6 +37,10 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
         final userRepo = UserRepo();
         final userData = await userRepo.getUserDetails(user.uid);
         final userModel = UserModel.fromMap(userData);
+
+        Logger().i('User role: ${userModel.role}');
+        Logger().i('User role type: ${userModel.role.runtimeType}');
+        
         switch (userModel.role) {
           case UserRole.father:
             if (mounted) GoRouter.of(context).go(AppRoutes.fatherScreen);

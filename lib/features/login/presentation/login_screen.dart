@@ -1,14 +1,19 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/web.dart';
+import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/app_regex.dart';
 import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_button.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
+import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
+import 'package:smart_home/features/home_screen/data/user_model.dart';
 import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/presentation/widgets/do_not_have_accont.dart';
 import 'package:smart_home/features/login/presentation/widgets/terms_condition.dart';
@@ -114,7 +119,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     email: _emailController.text.trim(),
                                   );
                               toastification.show(
-                                // ignore: use_build_context_synchronously
                                 context: context,
                                 title: const Text('Warning!'),
                                 description: const Text(
@@ -125,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 autoCloseDuration: const Duration(seconds: 5),
                               );
                             } on FirebaseAuthException catch (e) {
-                              // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Error: ${e.message}")),
                               );
@@ -139,11 +142,50 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 20),
                       BlocConsumer<LoginCubit, LoginState>(
-                        listener: (context, state) {
+                        listener: (context, state) async {
                           if (state is LoginSuccess) {
-                            GoRouter.of(
-                              context,
-                            ).pushReplacement(AppRoutes.homeScreen);
+                            // Add role-based navigation logic
+                            final user = FirebaseAuth.instance.currentUser;
+
+                            if (user != null && user.emailVerified) {
+                              final userRepo = UserRepo();
+                              final userData = await userRepo.getUserDetails(
+                                user.uid,
+                              );
+
+                              final userModel = UserModel.fromMap(userData);
+
+                              Logger().i('User role: ${userModel.role}');
+                              Logger().i(
+                                'User role type: ${userModel.role.runtimeType}',
+                              );
+
+                              switch (userModel.role) {
+                                case UserRole.father:
+                                  if (mounted) {
+                                    GoRouter.of(
+                                      context,
+                                    ).go(AppRoutes.fatherScreen);
+                                  }
+                                  break;
+                                case UserRole.mother:
+                                  if (mounted) {
+                                    GoRouter.of(
+                                      context,
+                                    ).go(AppRoutes.motherScreen);
+                                  }
+                                  break;
+                                case UserRole.child:
+                                  if (mounted) {
+                                    GoRouter.of(
+                                      context,
+                                    ).go(AppRoutes.childScreen);
+                                  }
+                                  break;
+                              }
+                            } else {
+                              Logger().e('User not verified or null');
+                            }
                           } else if (state is LoginFailure) {
                             toastification.show(
                               context: context,
@@ -156,11 +198,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         },
                         builder: (context, state) {
-                          // if (state is LoginLoading) {
-                          //   return const Center(
-                          //     child: CircularProgressIndicator(),
-                          //   );
-                          // }
                           return AppTextButton(
                             child: (state is LoginLoading)
                                 ? const SizedBox(
