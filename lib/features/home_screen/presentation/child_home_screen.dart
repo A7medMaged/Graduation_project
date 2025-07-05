@@ -52,6 +52,7 @@ class _ChildHomeScreenState extends State<ChildHomeScreen> {
         ],
       ),
       body: Stack(
+        fit: StackFit.expand,
         children: [
           Image.asset('assets/images/living.jpg', fit: BoxFit.cover),
           // ignore: deprecated_member_use
