@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:logger/web.dart';
+import 'package:logger/logger.dart';
 import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/assets.dart';
 import 'package:smart_home/core/routing/routes.dart';
@@ -32,7 +32,36 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
     super.initState();
     _initAnimation();
     _connectionSub = InternetConnection().onStatusChange.listen((_) {});
-    tryNavigate();
+  }
+
+  void _initAnimation() {
+    _animController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    _slidingAnim = Tween<Offset>(
+      begin: const Offset(0, 10),
+      end: Offset.zero,
+    ).animate(_animController);
+
+    // Start animation
+    _animController.forward();
+
+    // Wait for animation to complete, then navigate
+    _animController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _startNavigation();
+      }
+    });
+  }
+
+  void _startNavigation() {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        tryNavigate();
+      }
+    });
   }
 
   Future<void> tryNavigate() async {
@@ -58,39 +87,37 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
 
   Future<void> _navigateByUserRole() async {
     final user = FirebaseAuth.instance.currentUser;
+
     if (user != null && user.emailVerified) {
-      final userRepo = UserRepo();
-      final userData = await userRepo.getUserDetails(user.uid);
-      final userModel = UserModel.fromMap(userData);
+      try {
+        final userRepo = UserRepo();
+        final userData = await userRepo.getUserDetails(user.uid);
+        final userModel = UserModel.fromMap(userData);
 
-      Logger().i('User role: ${userModel.role}');
+        if (kDebugMode) {
+          Logger().i('User role: ${userModel.role}');
+        }
 
-      switch (userModel.role) {
-        case UserRole.father:
-          if (mounted) context.go(AppRoutes.fatherScreen);
-          break;
-        case UserRole.mother:
-          if (mounted) context.go(AppRoutes.motherScreen);
-          break;
-        case UserRole.child:
-          if (mounted) context.go(AppRoutes.childScreen);
-          break;
+        switch (userModel.role) {
+          case UserRole.father:
+            if (mounted) context.go(AppRoutes.fatherScreen);
+            break;
+          case UserRole.mother:
+            if (mounted) context.go(AppRoutes.motherScreen);
+            break;
+          case UserRole.child:
+            if (mounted) context.go(AppRoutes.childScreen);
+            break;
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          Logger().e('Error getting user data: $e');
+        }
+        if (mounted) context.go(AppRoutes.loginScreen);
       }
     } else {
       if (mounted) context.go(AppRoutes.loginScreen);
     }
-  }
-
-  void _initAnimation() {
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    );
-    _slidingAnim = Tween<Offset>(
-      begin: const Offset(0, 10),
-      end: Offset.zero,
-    ).animate(_animController);
-    _animController.forward();
   }
 
   @override
