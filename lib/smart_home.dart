@@ -9,7 +9,6 @@ import 'package:smart_home/features/home_screen/data/repos/mode_repo.dart';
 import 'package:smart_home/features/home_screen/data/repos/sensors_repo.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/leds_cubit/leds_cubit.dart';
 import 'package:smart_home/features/home_screen/presentation/cubits/sensors_cubit/sensors_cubit.dart';
-
 import 'features/home_screen/data/repos/leds_repo.dart';
 import 'features/home_screen/presentation/cubits/mode_cubit/mode_cubit.dart';
 

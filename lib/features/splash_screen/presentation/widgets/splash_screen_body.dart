@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:logger/web.dart';
 import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/assets.dart';
@@ -8,6 +11,7 @@ import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
 import 'package:smart_home/features/home_screen/data/user_model.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/offline_screen.dart';
 import 'package:smart_home/features/splash_screen/presentation/widgets/sliding_text.dart';
 
 class SplashScreenBody extends StatefulWidget {
@@ -19,74 +23,92 @@ class SplashScreenBody extends StatefulWidget {
 
 class _SplashScreenBodyState extends State<SplashScreenBody>
     with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
-  late Animation<Offset> slidingAnimation;
+  late AnimationController _animController;
+  late Animation<Offset> _slidingAnim;
+  StreamSubscription? _connectionSub;
 
   @override
   void initState() {
     super.initState();
-    initSlidingAnimation();
-    navigateToHome();
+    _initAnimation();
+    _connectionSub = InternetConnection().onStatusChange.listen((_) {});
+    tryNavigate();
   }
 
-  void navigateToHome() {
-    Future.delayed(const Duration(seconds: 2), () async {
-      final user = FirebaseAuth.instance.currentUser;
+  Future<void> tryNavigate() async {
+    final hasNet = await InternetConnection().hasInternetAccess;
+    if (!hasNet) {
+      if (!mounted) return;
+      await Navigator.of(context).push(
+        MaterialPageRoute(
+          barrierDismissible: false,
+          builder: (_) => OfflineScreen(
+            onRetry: () async {
+              const CircularProgressIndicator();
+              await tryNavigate();
+            },
+          ),
+        ),
+      );
+      return;
+    }
 
-      if (user != null && user.emailVerified) {
-        final userRepo = UserRepo();
-        final userData = await userRepo.getUserDetails(user.uid);
-        final userModel = UserModel.fromMap(userData);
+    await _navigateByUserRole();
+  }
 
-        Logger().i('User role: ${userModel.role}');
-        Logger().i('User role type: ${userModel.role.runtimeType}');
-        
-        switch (userModel.role) {
-          case UserRole.father:
-            if (mounted) GoRouter.of(context).go(AppRoutes.fatherScreen);
-            break;
-          case UserRole.mother:
-            if (mounted) GoRouter.of(context).go(AppRoutes.motherScreen);
-            break;
-          case UserRole.child:
-            if (mounted) GoRouter.of(context).go(AppRoutes.childScreen);
-            break;
-        }
-      } else {
-        if (mounted) GoRouter.of(context).go(AppRoutes.loginScreen);
+  Future<void> _navigateByUserRole() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && user.emailVerified) {
+      final userRepo = UserRepo();
+      final userData = await userRepo.getUserDetails(user.uid);
+      final userModel = UserModel.fromMap(userData);
+
+      Logger().i('User role: ${userModel.role}');
+
+      switch (userModel.role) {
+        case UserRole.father:
+          if (mounted) context.go(AppRoutes.fatherScreen);
+          break;
+        case UserRole.mother:
+          if (mounted) context.go(AppRoutes.motherScreen);
+          break;
+        case UserRole.child:
+          if (mounted) context.go(AppRoutes.childScreen);
+          break;
       }
-    });
+    } else {
+      if (mounted) context.go(AppRoutes.loginScreen);
+    }
   }
 
-  void initSlidingAnimation() {
-    animationController = AnimationController(
+  void _initAnimation() {
+    _animController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
     );
-
-    slidingAnimation = Tween<Offset>(
+    _slidingAnim = Tween<Offset>(
       begin: const Offset(0, 10),
       end: Offset.zero,
-    ).animate(animationController);
-
-    animationController.forward();
+    ).animate(_animController);
+    _animController.forward();
   }
 
   @override
   void dispose() {
+    _animController.dispose();
+    _connectionSub?.cancel();
     super.dispose();
-    animationController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 20,
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset(AssetsData.logo, color: mainColor, height: 200, width: 200),
-        SlidingText(slidingAnimation: slidingAnimation),
+        Image.asset(AssetsData.logo, height: 200, width: 200, color: mainColor),
+        const SizedBox(height: 20),
+        SlidingText(slidingAnimation: _slidingAnim),
       ],
     );
   }

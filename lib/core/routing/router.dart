@@ -12,6 +12,7 @@ import 'package:smart_home/features/home_screen/presentation/father_home_screen.
 import 'package:smart_home/features/home_screen/presentation/mother_home_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/kitchen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/mode_screen.dart';
+import 'package:smart_home/features/home_screen/presentation/widgets/offline_screen.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_one.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/rooms.dart';
@@ -100,8 +101,11 @@ class AppRouter {
       ),
       GoRoute(
         path: AppRoutes.faceCam,
-        builder: (context, state) =>
-            const FaceCam(), // Placeholder for face camera
+        builder: (context, state) => const FaceCam(),
+      ),
+      GoRoute(
+        path: AppRoutes.offline,
+        builder: (context, state) => const OfflineScreen(),
       ),
     ],
   );
