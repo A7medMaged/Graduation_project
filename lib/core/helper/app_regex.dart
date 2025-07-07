@@ -6,9 +6,19 @@ class AppRegex {
   }
 
   static bool isPasswordValid(String password) {
-    return RegExp(
-      r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
-    ).hasMatch(password);
+    if (password.length < 8) return false;
+
+    if (!RegExp(r'[a-z]').hasMatch(password)) return false;
+
+    if (!RegExp(r'[A-Z]').hasMatch(password)) return false;
+
+    if (!RegExp(r'\d').hasMatch(password)) return false;
+
+    if (!RegExp(r'[!@#$%^&*()_+\-=\[\]{}|;:",./<>?~`]').hasMatch(password)) {
+      return false;
+    }
+
+    return true;
   }
 
   static bool isPhoneNumberValid(String phoneNumber) {
