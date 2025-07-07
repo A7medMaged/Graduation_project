@@ -115,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Your account has been created successfully.\nGo to your email to verify your account.',
                               ),
                               type: ToastificationType.success,
-                              style: ToastificationStyle.flat,
+                              style: ToastificationStyle.minimal,
                               autoCloseDuration: const Duration(seconds: 5),
                             );
                             GoRouter.of(
@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 'Error occurred while creating account. Please try again.',
                               ),
                               type: ToastificationType.error,
-                              style: ToastificationStyle.flat,
+                              style: ToastificationStyle.minimal,
                               autoCloseDuration: const Duration(seconds: 5),
                             );
                           }
@@ -224,9 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     controller: buildingNoController,
                     hintText: 'Building No.',
                     prefixIcon: const Icon(FontAwesomeIcons.building),
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: false,
-                    ),
+                    keyboardType: TextInputType.number,
                     validator: (value) => (value == null || value.isEmpty)
                         ? 'Enter building no'
                         : null,

@@ -17,7 +17,7 @@ import 'package:smart_home/features/home_screen/presentation/widgets/room_one.da
 import 'package:smart_home/features/home_screen/presentation/widgets/room_two.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/rooms.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_profile.dart';
-import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
+import 'package:smart_home/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/data/login_repo.dart';
 import 'package:smart_home/features/login/presentation/login_screen.dart';
 import 'package:smart_home/features/register/data/cubit/register_cubit.dart';

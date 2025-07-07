@@ -15,7 +15,7 @@ import 'package:smart_home/core/widgets/app_text_button.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
 import 'package:smart_home/features/home_screen/data/repos/user_repo.dart';
 import 'package:smart_home/features/home_screen/data/user_model.dart';
-import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
+import 'package:smart_home/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/presentation/widgets/do_not_have_accont.dart';
 import 'package:smart_home/features/login/presentation/widgets/terms_condition.dart';
 import 'package:toastification/toastification.dart';
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'Password reset email sent',
                                 ),
                                 type: ToastificationType.warning,
-                                style: ToastificationStyle.flat,
+                                style: ToastificationStyle.minimal,
                                 autoCloseDuration: const Duration(seconds: 5),
                               );
                             } on FirebaseAuthException catch (e) {
@@ -145,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       BlocConsumer<LoginCubit, LoginState>(
                         listener: (context, state) async {
                           if (state is LoginSuccess) {
-                            // Add role-based navigation logic
                             final user = FirebaseAuth.instance.currentUser;
 
                             if (user != null && user.emailVerified) {
@@ -155,11 +154,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
 
                               final userModel = UserModel.fromMap(userData);
-
-                              Logger().i('User role: ${userModel.role}');
-                              Logger().i(
-                                'User role type: ${userModel.role.runtimeType}',
-                              );
 
                               switch (userModel.role) {
                                 case UserRole.father:
@@ -193,13 +187,27 @@ class _LoginScreenState extends State<LoginScreen> {
                               title: const Text('Login Failed'),
                               description: Text(state.error),
                               type: ToastificationType.error,
-                              style: ToastificationStyle.flat,
+                              style: ToastificationStyle.minimal,
                               autoCloseDuration: const Duration(seconds: 5),
                             );
                           }
                         },
                         builder: (context, state) {
                           return AppTextButton(
+                            onPressed: () async {
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  autovalidateMode =
+                                      AutovalidateMode.onUserInteraction;
+                                });
+                                context.read<LoginCubit>().login(
+                                  _emailController.text.trim(),
+                                  _passwordController.text.trim(),
+                                );
+                              } else {
+                                logger.e('Form is not valid');
+                              }
+                            },
                             child: (state is LoginLoading)
                                 ? const SizedBox(
                                     width: 24,
@@ -213,58 +221,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                       fontSize: 21,
                                     ),
                                   ),
-
-                            onPressed: () async {
-                              if (formKey.currentState!.validate()) {
-                                setState(() {
-                                  autovalidateMode =
-                                      AutovalidateMode.onUserInteraction;
-                                });
-                                try {
-                                  context.read<LoginCubit>().login(
-                                    _emailController.text.trim(),
-                                    _passwordController.text.trim(),
-                                  );
-                                } on FirebaseAuthException catch (e) {
-                                  // ignore: unused_local_variable
-                                  String errorMessage;
-                                  switch (e.code) {
-                                    case 'invalid-email':
-                                      errorMessage =
-                                          'The email address is not valid.';
-                                      break;
-                                    case 'user-disabled':
-                                      errorMessage =
-                                          'The user account has been disabled.';
-                                      break;
-                                    case 'user-not-found':
-                                      errorMessage =
-                                          'No user found with this email.';
-                                      break;
-                                    case 'wrong-password':
-                                      errorMessage = 'Incorrect password.';
-                                      break;
-                                    default:
-                                      errorMessage =
-                                          'An unknown error occurred.';
-                                  }
-                                  toastification.show(
-                                    context: context,
-                                    title: const Text('Login Failed'),
-                                    description: Text(errorMessage),
-                                    type: ToastificationType.error,
-                                    style: ToastificationStyle.flat,
-                                    autoCloseDuration: const Duration(
-                                      seconds: 5,
-                                    ),
-                                  );
-                                } catch (e) {
-                                  logger.e(e);
-                                }
-                              } else {
-                                logger.e('Form is not valid');
-                              }
-                            },
                           );
                         },
                       ),

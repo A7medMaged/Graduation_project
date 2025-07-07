@@ -4,18 +4,10 @@ class LoginRepo {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> login(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
+    await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   Future<void> logout() async {
-    try {
-      await _auth.signOut();
-    } catch (e) {
-      throw Exception('Logout failed: ${e.toString()}');
-    }
+    await _auth.signOut();
   }
 }

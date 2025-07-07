@@ -10,7 +10,7 @@ import 'package:smart_home/features/home_screen/presentation/widgets/loading.dar
 import 'package:smart_home/features/home_screen/presentation/widgets/signout_section.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_avatar.dart';
 import 'package:smart_home/features/home_screen/presentation/widgets/user_details.dart';
-import 'package:smart_home/features/login/data/cubit/login_cubit.dart';
+import 'package:smart_home/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/data/login_repo.dart';
 
 class UserProfileScreen extends StatelessWidget {
