@@ -1,10 +1,13 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:logger/logger.dart';
+
 import 'package:smart_home/core/enum/user_role.dart';
 import 'package:smart_home/core/helper/assets.dart';
 import 'package:smart_home/core/routing/routes.dart';
@@ -37,18 +40,14 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
   void _initAnimation() {
     _animController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 4),
     );
 
     _slidingAnim = Tween<Offset>(
       begin: const Offset(0, 10),
       end: Offset.zero,
     ).animate(_animController);
-
-    // Start animation
     _animController.forward();
-
-    // Wait for animation to complete, then navigate
     _animController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         _startNavigation();
@@ -73,7 +72,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody>
           barrierDismissible: false,
           builder: (_) => OfflineScreen(
             onRetry: () async {
-              const CircularProgressIndicator();
+              const GFLoader(type: GFLoaderType.ios);
               await tryNavigate();
             },
           ),

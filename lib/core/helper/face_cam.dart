@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:getwidget/getwidget.dart';
 
 class FaceCam extends StatefulWidget {
   const FaceCam({super.key});
@@ -95,7 +96,15 @@ class _FaceCamState extends State<FaceCam> {
         backgroundColor: Colors.transparent,
       ),
       body: streamUrl == null
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: GFLoader(
+                type: GFLoaderType.circle,
+                loaderColorOne: mainColor,
+                loaderColorTwo: mainColor,
+                loaderColorThree: mainColor,
+                loaderstrokeWidth: 2.0,
+              ),
+            )
           : Stack(
               children: [
                 WebViewWidget(controller: _controller),

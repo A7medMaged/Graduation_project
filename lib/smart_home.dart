@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:smart_home/core/helper/connectivity_service.dart';
@@ -111,6 +112,15 @@ class _SmartHomeAppState extends State<SmartHomeApp> {
                                     Text(
                                       'Please check your connection and try again.',
                                       textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 24),
+                                    GFLoader(
+                                      type: GFLoaderType.circle,
+                                      loaderColorOne: red,
+                                      loaderColorTwo: red,
+                                      loaderColorThree: red,
+                                      loaderstrokeWidth: 2.0,
+                                      size: GFSize.LARGE,
                                     ),
                                   ],
                                 ),

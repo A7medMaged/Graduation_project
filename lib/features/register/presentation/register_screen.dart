@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:smart_home/core/helper/app_regex.dart';
@@ -139,10 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ? const SizedBox(
                                     width: 24,
                                     height: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Colors.white,
-                                    ),
+                                    child: GFLoader(type: GFLoaderType.ios),
                                   )
                                 : Text(
                                     activeStep == 1 ? 'Submit' : 'Next',
@@ -301,7 +299,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           prefixIcon: const Icon(FontAwesomeIcons.envelope),
           keyboardType: TextInputType.emailAddress,
           validator: (value) {
-            if (value == null || value.isEmpty || !AppRegex.isEmailValid(value)) {
+            if (value == null ||
+                value.isEmpty ||
+                !AppRegex.isEmailValid(value)) {
               return 'Please enter a valid email';
             }
             return null;

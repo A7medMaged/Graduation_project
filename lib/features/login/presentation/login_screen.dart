@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getwidget/getwidget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/web.dart';
 import 'package:smart_home/core/enum/user_role.dart';
@@ -47,9 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Image.asset(
                   'assets/images/smart-house.png',
-                  width: 100,
-                  height: 100,
-                  color: white,
+                  width: 150,
+                  height: 150,
+                  color: mainColor,
                 ),
                 const SizedBox(height: 40),
                 Text('Welcome Back', style: TextStyles.font24BlueBold),
@@ -203,10 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ? const SizedBox(
                                     width: 24,
                                     height: 24,
-                                    child: CircularProgressIndicator(
-                                      color: Colors.white,
-                                      strokeWidth: 2,
-                                    ),
+                                    child: GFLoader(type: GFLoaderType.ios),
                                   )
                                 : const Text(
                                     "Login",

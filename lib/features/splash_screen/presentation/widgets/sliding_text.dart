@@ -16,7 +16,7 @@ class SlidingText extends StatelessWidget {
         return SlideTransition(
           position: slidingAnimation,
           child: Text(
-            'Be Smarter',
+            'Welcome to HAVEN \n Your Safe, Smart & Connected Home',
             textAlign: TextAlign.center,
             style: TextStyles.font32BlueBold.copyWith(
               fontFamily: GoogleFonts.creepsterTextTheme(
