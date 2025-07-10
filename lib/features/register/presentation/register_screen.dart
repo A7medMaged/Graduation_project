@@ -9,7 +9,7 @@ import 'package:smart_home/core/routing/routes.dart';
 import 'package:smart_home/core/theming/colors.dart';
 import 'package:smart_home/core/theming/text_style.dart';
 import 'package:smart_home/core/widgets/app_text_form_field.dart';
-import 'package:smart_home/features/register/data/cubit/register_cubit.dart';
+import 'package:smart_home/features/register/presentation/cubit/register_cubit.dart';
 import 'package:smart_home/features/register/presentation/widgets/back_to_login.dart';
 import 'package:toastification/toastification.dart';
 import 'package:easy_stepper/easy_stepper.dart';

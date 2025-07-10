@@ -257,5 +257,7 @@
         <domain includeSubdomains="true">192.168.8.253</domain>
         <domain includeSubdomains="true">192.168.8.254</domain>
         <domain includeSubdomains="true">192.168.8.255</domain>
+        <domain includeSubdomains="true">192.168.23.246</domain>
+
     </domain-config>
 </network-security-config>

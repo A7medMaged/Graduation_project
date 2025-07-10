@@ -20,8 +20,8 @@ import 'package:smart_home/features/home_screen/presentation/widgets/user_profil
 import 'package:smart_home/features/login/presentation/cubit/login_cubit.dart';
 import 'package:smart_home/features/login/data/login_repo.dart';
 import 'package:smart_home/features/login/presentation/login_screen.dart';
-import 'package:smart_home/features/register/data/cubit/register_cubit.dart';
 import 'package:smart_home/features/register/data/register_repo.dart';
+import 'package:smart_home/features/register/presentation/cubit/register_cubit.dart';
 import 'package:smart_home/features/register/presentation/register_screen.dart';
 import 'package:smart_home/features/splash_screen/presentation/splash_screen.dart';
 
